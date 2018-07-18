@@ -13,7 +13,17 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+# import sys
+import sys
+
+AUTH_USER_MODEL = 'users.UserPro'
+
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+sys.path.insert(0,os.path.join(BASE_DIR,'apps'))
+
+sys.path.insert(0,os.path.join(BASE_DIR, 'extra_apps'))
 
 
 # Quick-start development settings - unsuitable for production
@@ -26,7 +36,6 @@ SECRET_KEY = 'vu5=v4n7#p48+ojhe92yb_414wf9a7kcmxvk#hbuv6*od!uvzo'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -41,6 +50,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main.apps.MainConfig',
+    'users'
+
 ]
 
 MIDDLEWARE = [
@@ -74,7 +85,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'honey_room.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
@@ -82,14 +92,13 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'honey_room',
-        'HOST': 'localhost',
+        'HOST': '10.35.163.111',
         'PORT': '3306',
         'USER': 'root',
         'PASSWORD': 'wang3456',
         'CHARSET': 'utf8',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -109,7 +118,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
@@ -122,7 +130,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
