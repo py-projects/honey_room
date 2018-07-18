@@ -1,6 +1,9 @@
+import hashlib
+import uuid
+
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.urls import reverse
@@ -34,6 +37,33 @@ class LogoutView(View):
         logout(request)
         return HttpResponseRedirect(reverse('index'))
 
+
+def crypt(pwd, cryptName='md5'):
+    md5 = hashlib.md5()
+    md5.update(pwd.encode())
+    return md5.hexdigest()
+
+
+def newToken(username):
+    md5 = hashlib.md5()
+    md5.update((str(uuid.uuid4())+username).encode())
+    return md5.hexdigest()
+
+@csrf_exempt
 def register(request):
-    return render(request,"account.html")
+    if request.method == 'GET':
+        print('222')
+        return render(request,'account.html')
+    print('11111')
+    user = UserPro()
+    user.username = request.POST.get('username')
+    user.password = crypt(request.POST.get('password'))
+    user.mobile = request.POST.get('moblie')
+    user.nick_name = request.POST.get('nick_name')
+
+    user.token = newToken(user.username)
+    user.save()
+    resp = redirect('/index/')
+    resp.set_cookie('token',user.token)
+    return resp
 
