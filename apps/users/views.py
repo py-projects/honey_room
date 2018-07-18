@@ -2,6 +2,7 @@ import hashlib
 import uuid
 
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.hashers import make_password
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 
@@ -11,6 +12,7 @@ from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
 from users.models import UserPro
+from users.forms import RegistForm
 
 
 @csrf_exempt
@@ -23,8 +25,12 @@ def user_login(request):
         user = authenticate(username=user_name,password=pass_word)
         if user is not None:
             #登录
+            # users = user.first()
             login(request,user)
-            return render(request,"index.html",{'username':user_name})
+            result = render(request,"index.html",{'username':user_name})
+            # return render(request,"index.html",{'username':user_name})
+            result.set_cookie('user_id', user.id)
+            return result
         else:
             return render(request,'index.html',{'msg':'用户名或密码错误'})
 
@@ -50,20 +56,50 @@ def newToken(username):
     return md5.hexdigest()
 
 @csrf_exempt
+# def register(request):
+#     if request.method == 'GET':
+#         print('222')
+#         return render(request,'account.html')
+#     print('11111')
+#     user = UserPro()
+#     user.username = request.POST.get('username')
+#     user.password = crypt(request.POST.get('password'))
+#     user.mobile = request.POST.get('moblie')
+#     user.nick_name = request.POST.get('nick_name')
+#
+#     user.token = newToken(user.username)
+#     user.save()
+#     resp = redirect('/index/')
+#     resp.set_cookie('token',user.token)
+#     return resp
+
+
 def register(request):
     if request.method == 'GET':
-        print('222')
-        return render(request,'account.html')
-    print('11111')
-    user = UserPro()
-    user.username = request.POST.get('username')
-    user.password = crypt(request.POST.get('password'))
-    user.mobile = request.POST.get('moblie')
-    user.nick_name = request.POST.get('nick_name')
+            return render(request,'account.html')
 
-    user.token = newToken(user.username)
-    user.save()
-    resp = redirect('/index/')
-    resp.set_cookie('token',user.token)
-    return resp
+    register_form = RegistForm(request.POST)
+    if register_form.is_valid():
+
+        user_name = request.POST.get('username', None)
+        print(user_name)
+        # 如果用户已存在，则提示错误信息
+        if UserPro.objects.filter(username=user_name):
+            return render(request, 'account.html', {'register_form': register_form, 'msg': '用户已存在'})
+
+        pass_word = request.POST.get('password', None)
+        print(pass_word)
+        # # 实例化一个user_profile对象
+        # user_profile = UserPro()
+        # user_profile.username = user_name
+        # user_profile.is_active = False
+        # # 对保存到数据库的密码加密
+        # user_profile.password = make_password(pass_word)
+        # user_profile.save()
+        UserPro.objects.create_user(username=user_name, password=pass_word)
+
+        return render(request,'index.html',{'username':user_name})
+
+    else:
+        return render(request, 'account.html', {'register_form': register_form})
 

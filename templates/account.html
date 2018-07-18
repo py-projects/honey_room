@@ -303,24 +303,26 @@
                     <h3>注册</h3>
                     <div class="input">
                         <span>账号<label>*</label></span>
-                        <input type="text" name="username">
+                        <input type="text" name="username" value="{{ register_form.username.value }}">
                     </div>
                     <div class="input">
                         <span>昵称<label>*</label></span>
                         <input type="text" name="nick_name">
                     </div>
+
                     <div class="input">
                         <span>密码<label>*</label></span>
                         <input type="password" name="password">
                     </div>
+
                     <div class="input">
                         <span>确认密码<label>*</label></span>
                         <input type="password" name="password1">
                     </div>
-                    <!--<div class="input">
+                    <div class="input">
                         <span>邮箱<label>*</label></span>
-                        <input type="text" name="email">
-                    </div>-->
+                        <input type="text" name="email" value="{{ register_form.email.value }}">
+                    </div>
                     <div class="input">
                         <span>电话<label>*</label></span>
                         <input type="text" name="moblie">
