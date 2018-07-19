@@ -286,7 +286,7 @@
 	<!--cart-items-->
 	<div class="cart-items">
 		<div class="container">
-			<h2>My Shopping Cart(3)</h2>
+			<h2>{{ username }}的购物车</h2>
 			<script>$(document).ready(function(c) {
 				$('.close1').on('click', function(c){
 					$('.cart-header').fadeOut('slow', function(c){
@@ -295,23 +295,24 @@
 					});	  
 				});
 			</script>
-			<div class="cart-header">
+            {% for i in lis %}
+                <div class="cart-header">
 				<div class="close1"> </div>
 				<div class="cart-sec simpleCart_shelfItem">
 					<div class="cart-item cyc">
-						 <img src="images/m1.png" class="img-responsive" alt="">
+						 <img src="{{ i.img }}" class="img-responsive" alt="">
 					</div>
 					<div class="cart-item-info">
-						<h3><a href="#"> Lorem Ipsum is not simply </a><span>Pickup time:</span></h3>
+						<h3><a href="#"> {{ i.cake_name }} </a><span>送货时间:30分钟</span></h3>
 						<ul class="qty">
-							<li><p>Min. order value:</p></li>
-							<li><p>FREE delivery</p></li>
+							<li><p>数量:{{ i.number }}</p></li>
+							<li><p>免费送货</p></li>
 						</ul>
 						<div class="delivery">
-							<p>Service Charges : $10.00</p>
-							<span>Delivered in 1-1:30 hours</span>
+							<p>价格 : ￥{{ i.f_cake_discount }}</p>
+{#							<span>Delivered in 1-1:30 hours</span>#}
 							<div class="clearfix"></div>
-						</div>	
+						</div>
 					</div>
 					<div class="clearfix"></div>
 				</div>
@@ -321,61 +322,11 @@
 							$('.cart-header2').fadeOut('slow', function(c){
 						$('.cart-header2').remove();
 					});
-					});	  
+					});
 					});
 			 </script>
-			<div class="cart-header2">
-				<div class="close2"> </div>
-				<div class="cart-sec simpleCart_shelfItem">
-					<div class="cart-item cyc">
-						 <img src="images/m2.png" class="img-responsive" alt="">
-					</div>
-					<div class="cart-item-info">
-						<h3><a href="#"> Lorem Ipsum is not simply </a><span>Pickup time:</span></h3>
-						<ul class="qty">
-							<li><p>Min. order value:</p></li>
-							<li><p>FREE delivery</p></li>
-						</ul>
-						<div class="delivery">
-						<p>Service Charges : $10.00</p>
-						<span>Delivered in 1-1:30 hours</span>
-						<div class="clearfix"></div>
-					</div>	
-				   </div>
-				   <div class="clearfix"></div>
-				</div>
-			</div>
-				<script>$(document).ready(function(c) {
-					$('.close3').on('click', function(c){
-							$('.cart-header3').fadeOut('slow', function(c){
-						$('.cart-header3').remove();
-					});
-					});	  
-					});
-				</script>
-			<div class="cart-header3">
-				<div class="close3"> </div>
-				<div class="cart-sec simpleCart_shelfItem">
-					<div class="cart-item cyc">
-						 <img src="images/m3.png" class="img-responsive" alt="">
-					</div>
-					<div class="cart-item-info">
-						<h3><a href="#"> Lorem Ipsum is not simply </a><span>Pickup time:</span></h3>
-						<ul class="qty">
-							<li><p>Min. order value:</p></li>
-							<li><p>FREE delivery</p></li>
-						</ul>
-						<div class="delivery">
-							<p>Service Charges : $10.00</p>
-							<span>Delivered in 1-1:30 hours</span>
-							<div class="clearfix"></div>
-						</div>	
-					</div>
-					<div class="clearfix"></div>
-				</div>
-			</div>		
-		</div>
-	</div>
+            {% endfor %}
+
 	<!--//checkout-->	
 	<!--footer-->
 	<div class="footer">
