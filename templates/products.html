@@ -12,14 +12,14 @@ function hideURLbar() {
 } </script>
 
 <!-- the jScrollPane script -->
-<script type="text/javascript" src="js/jquery.jscrollpane.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.jscrollpane.min.js"></script>
 <script type="text/javascript" id="sourcecode">
     $(function () {
         $('.scroll-pane').jScrollPane();
     });
 </script>
 <!-- //the jScrollPane script -->
-<script type="text/javascript" src="js/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="/static/js/jquery.mousewheel.js"></script>
 <!-- the mousewheel plugin -->
 
 {% block content %}
@@ -28,259 +28,38 @@ function hideURLbar() {
         <div class="container">
             <h2>{{ classify }}</h2>
             <div class="col-md-9 product-model-sec">
-                <div class="product-grid">
-                    <a href="single.html">
-                        <div class="more-product"><span> </span></div>
-                        <div class="product-img b-link-stripe b-animate-go  thickbox">
-                            <img src="images/m1.png" class="img-responsive" alt="">
-                            <div class="b-wrapper">
-                                <h4 class="b-animate b-from-left  b-delay03">
-                                    <button>View</button>
-                                </h4>
+                {% for cake, img in cakes %}
+                    <div class="product-grid" id="{{ cake.id }}">
+                        <a href="/cakelistview/?cake_id={{ cake.id }}">
+                            <div class="more-product"><span> </span></div>
+                            <div class="product-img b-link-stripe b-animate-go  thickbox">
+                                <img src="{{ img|first }}" class="img-responsive" alt="">
+                                <div class="b-wrapper">
+                                    <h4 class="b-animate b-from-left  b-delay03">
+                                        <button>View</button>
+                                    </h4>
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                    <div class="product-info simpleCart_shelfItem">
-                        <div class="product-info-cust prt_name">
-                            <h4>Product #1</h4>
-                            <span class="item_price">$2000.00</span>
-                            <div class="ofr">
-                                <p class="pric1">
-                                    <del>$2300.00</del>
-                                </p>
-                                <p class="disc">[15% Off]</p>
+                        </a>
+                        <div class="product-info simpleCart_shelfItem">
+                            <div class="product-info-cust prt_name">
+                                <h4>{{ cake.cake_name }}</h4>
+                                <span class="item_price">{{ cake.cake_discount }}</span>
+                                <div class="ofr">
+                                    <p class="pric1">
+                                        <del>{{ cake.cake_price }}</del>
+                                    </p>
+                                    <p class="disc">[15% Off]</p>
+                                </div>
+                                <input type="text" class="item_quantity" value="1"/>
+                                <input type="button" class="item_add items" value="Add">
+                                <div class="clearfix"></div>
                             </div>
-                            <input type="text" class="item_quantity" value="1"/>
-                            <input type="button" class="item_add items" value="Add">
-                            <div class="clearfix"></div>
                         </div>
                     </div>
-                </div>
-                <div class="product-grid">
-                    <a href="single.html">
-                        <div class="more-product"><span> </span></div>
-                        <div class="product-img b-link-stripe b-animate-go  thickbox">
-                            <img src="images/m2.png" class="img-responsive" alt=""/>
-                            <div class="b-wrapper">
-                                <h4 class="b-animate b-from-left  b-delay03">
-                                    <button>View</button>
-                                </h4>
-                            </div>
-                        </div>
-                    </a>
-                    <div class="product-info simpleCart_shelfItem">
-                        <div class="product-info-cust prt_name">
-                            <h4>Product #1</h4>
-                            <span class="item_price">$2000.00</span>
-                            <div class="ofr">
-                                <p class="pric1">
-                                    <del>$2300.00</del>
-                                </p>
-                                <p class="disc">[15% Off]</p>
-                            </div>
-                            <input type="text" class="item_quantity" value="1"/>
-                            <input type="button" class="item_add items" value="Add">
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-grid">
-                    <a href="single.html">
-                        <div class="more-product"><span> </span></div>
-                        <div class="product-img b-link-stripe b-animate-go  thickbox">
-                            <img src="images/m3.png" class="img-responsive" alt=""/>
-                            <div class="b-wrapper">
-                                <h4 class="b-animate b-from-left  b-delay03">
-                                    <button> View</button>
-                                </h4>
-                            </div>
-                        </div>
-                    </a>
-                    <div class="product-info simpleCart_shelfItem">
-                        <div class="product-info-cust prt_name">
-                            <h4>Product #1</h4>
-                            <span class="item_price">$2000.00</span>
-                            <div class="ofr">
-                                <p class="pric1">
-                                    <del>$2300.00</del>
-                                </p>
-                                <p class="disc">[15% Off]</p>
-                            </div>
-                            <input type="text" class="item_quantity" value="1"/>
-                            <input type="button" class="item_add items" value="Add">
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-grid">
-                    <a href="single.html">
-                        <div class="more-product"><span> </span></div>
-                        <div class="product-img b-link-stripe b-animate-go  thickbox">
-                            <img src="images/m4.png" class="img-responsive" alt=""/>
-                            <div class="b-wrapper">
-                                <h4 class="b-animate b-from-left  b-delay03">
-                                    <button> View</button>
-                                </h4>
-                            </div>
-                        </div>
-                    </a>
-                    <div class="product-info simpleCart_shelfItem">
-                        <div class="product-info-cust prt_name">
-                            <h4>Product #1</h4>
-                            <span class="item_price">$2000.00</span>
-                            <div class="ofr">
-                                <p class="pric1">
-                                    <del>$2300.00</del>
-                                </p>
-                                <p class="disc">[15% Off]</p>
-                            </div>
-                            <input type="text" class="item_quantity" value="1"/>
-                            <input type="button" class="item_add items" value="Add">
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-grid">
-                    <a href="single.html">
-                        <div class="more-product"><span> </span></div>
-                        <div class="product-img b-link-stripe b-animate-go  thickbox">
-                            <img src="images/m5.png" class="img-responsive" alt=""/>
-                            <div class="b-wrapper">
-                                <h4 class="b-animate b-from-left  b-delay03">
-                                    <button> View</button>
-                                </h4>
-                            </div>
-                        </div>
-                    </a>
-                    <div class="product-info simpleCart_shelfItem">
-                        <div class="product-info-cust prt_name">
-                            <h4>Product #1</h4>
-                            <span class="item_price">$2000.00</span>
-                            <div class="ofr">
-                                <p class="pric1">
-                                    <del>$2300.00</del>
-                                </p>
-                                <p class="disc">[15% Off]</p>
-                            </div>
-                            <input type="text" class="item_quantity" value="1"/>
-                            <input type="button" class="item_add items" value="Add">
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-grid">
-                    <a href="single.html">
-                        <div class="more-product"><span> </span></div>
-                        <div class="product-img b-link-stripe b-animate-go  thickbox">
-                            <img src="images/m6.png" class="img-responsive" alt=""/>
-                            <div class="b-wrapper">
-                                <h4 class="b-animate b-from-left  b-delay03">
-                                    <button> View</button>
-                                </h4>
-                            </div>
-                        </div>
-                    </a>
-                    <div class="product-info simpleCart_shelfItem">
-                        <div class="product-info-cust prt_name">
-                            <h4>Product #1</h4>
-                            <span class="item_price">$2000.00</span>
-                            <div class="ofr">
-                                <p class="pric1">
-                                    <del>$2300.00</del>
-                                </p>
-                                <p class="disc">[15% Off]</p>
-                            </div>
-                            <input type="text" class="item_quantity" value="1"/>
-                            <input type="button" class="item_add items" value="Add">
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-grid">
-                    <a href="single.html">
-                        <div class="more-product"><span> </span></div>
-                        <div class="product-img b-link-stripe b-animate-go  thickbox">
-                            <img src="images/m7.png" class="img-responsive" alt=""/>
-                            <div class="b-wrapper">
-                                <h4 class="b-animate b-from-left  b-delay03">
-                                    <button> View</button>
-                                </h4>
-                            </div>
-                        </div>
-                    </a>
-                    <div class="product-info simpleCart_shelfItem">
-                        <div class="product-info-cust prt_name">
-                            <h4>Product #1</h4>
-                            <span class="item_price">$2000.00</span>
-                            <div class="ofr">
-                                <p class="pric1">
-                                    <del>$2300.00</del>
-                                </p>
-                                <p class="disc">[15% Off]</p>
-                            </div>
-                            <input type="text" class="item_quantity" value="1"/>
-                            <input type="button" class="item_add items" value="Add">
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-grid">
-                    <a href="single.html">
-                        <div class="more-product"><span> </span></div>
-                        <div class="product-img b-link-stripe b-animate-go  thickbox">
-                            <img src="images/m8.png" class="img-responsive" alt=""/>
-                            <div class="b-wrapper">
-                                <h4 class="b-animate b-from-left  b-delay03">
-                                    <button> View</button>
-                                </h4>
-                            </div>
-                        </div>
-                    </a>
-                    <div class="product-info simpleCart_shelfItem">
-                        <div class="product-info-cust prt_name">
-                            <h4>Product #1</h4>
-                            <span class="item_price">$2000.00</span>
-                            <div class="ofr">
-                                <p class="pric1">
-                                    <del>$2300.00</del>
-                                </p>
-                                <p class="disc">[15% Off]</p>
-                            </div>
-                            <input type="text" class="item_quantity" value="1"/>
-                            <input type="button" class="item_add items" value="Add">
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-grid">
-                    <a href="single.html">
-                        <div class="more-product"><span> </span></div>
-                        <div class="product-img b-link-stripe b-animate-go  thickbox">
-                            <img src="images/m9.png" class="img-responsive" alt=""/>
-                            <div class="b-wrapper">
-                                <h4 class="b-animate b-from-left  b-delay03">
-                                    <button> View</button>
-                                </h4>
-                            </div>
-                        </div>
-                    </a>
-                    <div class="product-info simpleCart_shelfItem">
-                        <div class="product-info-cust prt_name">
-                            <h4>Product #1</h4>
-                            <span class="item_price">$2000.00</span>
-                            <div class="ofr">
-                                <p class="pric1">
-                                    <del>$2300.00</del>
-                                </p>
-                                <p class="disc">[15% Off]</p>
-                            </div>
-                            <input type="text" class="item_quantity" value="1"/>
-                            <input type="button" class="item_add items" value="Add">
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
+            <!-- left menu -->
             <div class="col-md-3 rsidebar span_1_of_left">
                 <section class="sky-form">
                     <div class="product_right">
@@ -483,57 +262,5 @@ function hideURLbar() {
         </div>
     </div>
     <!--//products-->
-    <!--footer-->
-    <div class="footer">
-        <div class="container">
-            <div class="footer-grids">
-                <div class="col-md-2 footer-grid">
-                    <h4>company</h4>
-                    <ul>
-                        <li><a href="products.html">products</a></li>
-                        <li><a href="#">Work Here</a></li>
-                        <li><a href="#">Team</a></li>
-                        <li><a href="#">Happenings</a></li>
-                        <li><a href="#">Dealer Locator</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-2 footer-grid">
-                    <h4>service</h4>
-                    <ul>
-                        <li><a href="#">Support</a></li>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Warranty</a></li>
-                        <li><a href="contact.html">Contact Us</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3 footer-grid">
-                    <h4>order & returns</h4>
-                    <ul>
-                        <li><a href="#">Order Status</a></li>
-                        <li><a href="#">Shipping Policy</a></li>
-                        <li><a href="#">Return Policy</a></li>
-                        <li><a href="#">Digital Gift Card</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-2 footer-grid">
-                    <h4>legal</h4>
-                    <ul>
-                        <li><a href="#">Privacy</a></li>
-                        <li><a href="#">Terms and Conditions</a></li>
-                        <li><a href="#">Social Responsibility</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3 footer-grid icons">
-                    <h4>Connect with Us</h4>
-                    <ul>
-                        <li><a href="#"><img src="images/i1.png" alt=""/>Follow us on Facebook</a></li>
-                        <li><a href="#"><img src="images/i2.png" alt=""/>Follow us on Twitter</a></li>
-                        <li><a href="#"><img src="images/i3.png" alt=""/>Follow us on Google-plus</a></li>
-                        <li><a href="#"><img src="images/i4.png" alt=""/>Follow us on Pinterest</a></li>
-                    </ul>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-        </div>
-    </div>
-{% endblock content %}
+
+{% endblock %}

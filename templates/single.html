@@ -242,7 +242,7 @@
             <div class="product-model-sec single-product-grids">
                 {% for tag in tags %}
                     <div class="product-grid single-product">
-                        <a href="single.html">
+                        <a href="/cakelistview/?cake_id={{ tag.id }}">
                             <div class="more-product"><span> </span></div>
                             <div class="product-img b-link-stripe b-animate-go  thickbox">
                                 <img src="{{ tag.cake_img }}" class="img-responsive" alt="">
@@ -268,7 +268,7 @@
                         </div>
                     </div>
                 {% endfor %}
-            
+
                 <div class="clearfix"></div>
             </div>
         </div>
