@@ -2,7 +2,9 @@ import hashlib
 import uuid
 
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth.hashers import make_password
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 
@@ -13,7 +15,6 @@ from django.views.decorators.csrf import csrf_exempt
 
 from users.models import UserPro
 from users.forms import RegistForm
-
 
 @csrf_exempt
 def user_login(request):
@@ -84,18 +85,11 @@ def register(request):
         user_name = request.POST.get('username', None)
         print(user_name)
         # 如果用户已存在，则提示错误信息
-        if UserPro.objects.filter(username=user_name):
-            return render(request, 'account.html', {'register_form': register_form, 'msg': '用户已存在'})
+        # if UserPro.objects.filter(username=user_name):
+        #     return render(request, 'account.html', {'register_form': register_form, 'msg': '用户已存在'})
 
         pass_word = request.POST.get('password', None)
         print(pass_word)
-        # # 实例化一个user_profile对象
-        # user_profile = UserPro()
-        # user_profile.username = user_name
-        # user_profile.is_active = False
-        # # 对保存到数据库的密码加密
-        # user_profile.password = make_password(pass_word)
-        # user_profile.save()
         UserPro.objects.create_user(username=user_name, password=pass_word)
 
         return render(request,'index.html',{'username':user_name})

@@ -30,6 +30,7 @@ urlpatterns = [
     path('',TemplateView.as_view(template_name="index.html"),name = "index"),
     path('index/', views.user_login, name='index'),
     path('logout/', LogoutView.as_view(), name="logout"),
-    path('register/',views.register, name='register')
+    path('register/',views.register, name='register'),
+
 
 ]
