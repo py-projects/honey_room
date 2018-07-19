@@ -259,9 +259,11 @@
                 <a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
                 <div id="loginBox">
                     {% if request.user.is_authenticated %}
-                        <h2>{{ username }}</h2>
+                        <div>
+                        <span class="glyphicon glyphicon-user" aria-hidden="true">{{ username }}</span>
+                        </div>
                         <div class="btn">
-                            <a class="fr" href="/logout/">退出</a>
+                            <a href="/logout/" class="btn btn-primary btn-sm" role="button">退出</a>
                         </div>
                     {% else %}
                         <form id="loginForm" method="post" action="/index/">
