@@ -48,7 +48,7 @@ class Categories(models.Model):
         verbose_name_plural = verbose_name
 
 
-# Create your models here.
+# 商品数据存储
 class Cake(models.Model):
     cake_name = models.CharField(max_length=50, verbose_name='蛋糕名')
     cake_img = models.CharField(max_length=256, verbose_name='列表图')
@@ -67,9 +67,11 @@ class Cake(models.Model):
         verbose_name_plural = verbose_name
 
 
+# 存储购物车数据
 class CheckOut(models.Model):
     user = models.ForeignKey(UserPro, on_delete=models.CASCADE, verbose_name='用户')
     cake = models.ForeignKey(Cake, on_delete=models.CASCADE, verbose_name='蛋糕')
+    number = models.CharField(max_length=10, verbose_name='原价', default=1)
 
     class Meta:
         verbose_name = "购物车"
