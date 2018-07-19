@@ -28,10 +28,18 @@ xadmin.autodiscover()
 
 urlpatterns = [
     path('xadmin/', xadmin.site.urls),
+    # 首页
     path('', TemplateView.as_view(template_name="index.html"), name="index"),
+    # 登录
     path('index/', views.user_login, name='index'),
+    # 登出
     path('logout/', LogoutView.as_view(), name="logout"),
+    # 注册
     path('register/', views.register, name='register'),
     # 商品列表
     path('cake/', main_views.cake, name='cake'),
+    # 商品详情页
+    # path('cakelistview/(?P<cake_id>\d+)/$', main_views.CakeListView.as_view(), name ='cakelistview')
+    path('cakelistview/', main_views.CakeListView.as_view(), name='cakelistview')
+
 ]
