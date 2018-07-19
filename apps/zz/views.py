@@ -27,7 +27,6 @@ def checkout(request):  # 购物车页面
     if request.user.is_authenticated:
         user_id = request.COOKIES.get('user_id')
         user_name = UserPro.objects.filter(id=user_id).first().username
-        print(user_name,'dddddddddddddddddddddddddddddddddd')
         checkout = CheckOut.objects.filter(user_id=user_id)
         lis = []
         for i in checkout:
