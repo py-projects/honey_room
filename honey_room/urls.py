@@ -35,6 +35,8 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     # 商品列表
     path('cake/', main_views.cake, name='cake'),
-    path('checkout/',zz.views.checkout,name='checkout'),
+    path('tj_shopping/',zz.views.tj_shopping,name='ti_shopping'),
+    path('checkout/',zz.views.checkout,name='checkout')
 
 ]
+

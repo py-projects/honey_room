@@ -70,6 +70,7 @@ class Cake(models.Model):
 class CheckOut(models.Model):
     user = models.ForeignKey(UserPro, on_delete=models.CASCADE, verbose_name='用户')
     cake = models.ForeignKey(Cake, on_delete=models.CASCADE, verbose_name='蛋糕')
+    number = models.CharField(max_length=10, verbose_name='原价', default=1)
 
     class Meta:
         verbose_name = "购物车"
