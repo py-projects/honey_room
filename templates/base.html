@@ -110,19 +110,33 @@
     $.ajax({url: '/head/',
             dataType: 'json',
             success: function (data) {
+                console.log(data);
+                console.log(data.flavour);
                 for (i in data.type){
                     $('#top_menu').append("<li class=\"dropdown\">\n" +
-                        "                        <a href=\"cake/?page=1\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">商城<b class=\"caret\"></b></a>\n" +
+                        "                        <a href=\"cake/?page=1\" class=\"dropdown-toggle\">商城<b class=\"caret\"></b></a>\n" +
                         "                        <ul class=\"dropdown-menu multi-column columns-4\">\n" +
-                        "                            <div class=\"row\">\n"+
+                        "                            <div class=\"row\" id='child_menu'>\n"+
                         "                            </div>\n" +
                         "                        </ul>\n" +
                         "                    </li>");
                     let a = $(".dropdown-toggle")[i];
                     a.innerText = data.type[i];
-                    a.setAttribute("href", "/cake/?page=1&type='categories'&value="+ data.type[i])
+                    a.setAttribute("href", "/cake/?page=1&type=categories&value="+ data.type[i])
                 }
-
+                if (data.flavour){
+                    let child_menu = $("#child_menu")[0];
+                    console.log(child_menu);
+                    let h4_emt = document.createElement('<h4>口味</h4>');
+                    let ul_emt = document.createElement('<ul class="multi-column-dropdown"></ul>');
+                    child_menu.appendChild(h4_emt);
+                    for (dic in data.flavour){
+                        let li_emt = document.createElement('<li><a class="list" href="/cake/?page=1&type=flavour&value='
+                                                +data.flavour.pk+'">'+data.flavour.fields.flavour+'</a></li>');
+                        ul_emt.appendChild(li_emt);
+                    }
+                    child_menu.appendChild(ul_emt);
+                }
             }});
 </script>
 </body>

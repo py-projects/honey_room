@@ -1,3 +1,4 @@
+from django.core import serializers
 from django.http import JsonResponse
 from django.shortcuts import render
 from main.models import *
@@ -17,7 +18,10 @@ def cake(request):
     if argument.get('page'):
         page = argument.get('page')
     if field == 'categories':
-        cakes = Cake.objects.all().order_by('id')
+        if value == '商城':
+            cakes = Cake.objects.all().order_by('id')
+        else:
+            cakes = Cake.objects.filter(cake_categories__cake_type=value)
     elif field == 'cake_relation':
         cakes = Cake.objects.filter(cake_relation__relation=value).order_by('id')
     pt = Paginator(cakes, 9)
@@ -26,41 +30,51 @@ def cake(request):
     cakes = zip(cakes_page, images)
     return render(request, 'products.html', {'cakes': cakes,
                                              'page': cakes_page,
-                                             'classify': '全部商品'})
+                                             'classify': value})
 
 
 # 返回顶部菜单数据
 def head(request):
     print('------------------------开始工作')
     data = {}
-    relation = Relation.objects.filter(is_active=True)
-    flavour = Flavour.objects.filter(is_active=True)
-    weight = Weight.objects.filter(is_active=True)
-    theme = Theme.objects.filter(is_active=True)
+    relation = serializers.serialize('json', Relation.objects.filter(is_active=True))
+    flavour = serializers.serialize('json', Flavour.objects.filter(is_active=True))
+    weight = serializers.serialize('json', Weight.objects.filter(is_active=True))
+    theme = serializers.serialize('json', Theme.objects.filter(is_active=True))
     categories = Categories.objects.filter(is_active=True)
+    data['relation'] = relation
+    data['flavour'] = flavour
+    data['weight'] = weight
+    data['theme'] = theme
+
+    # relation = Relation.objects.filter(is_active=True)
+    # flavour = Flavour.objects.filter(is_active=True)
+    # weight = Weight.objects.filter(is_active=True)
+    # theme = Theme.objects.filter(is_active=True)
+    # categories = Categories.objects.filter(is_active=True)
 
     # 序列化
-    relations = []
-    for rel in relation:
-        relations.append(rel.relation)
-
-    data['关系'] = relations
-
-    flavours = []
-    for fla in flavour:
-        flavours.append(fla.flavour)
-    data['口味'] = flavours
-
-    weights = []
-    for w in weight:
-        weights.append(w.weight)
-    data['大小'] = weights
-
-    themes = []
-    for t in theme:
-        themes.append(t.theme)
-    data['主题'] = themes
-
+    # relations = []
+    # for rel in relation:
+    #     relations.append(rel.relation)
+    #
+    # data['关系'] = relations
+    #
+    # flavours = []
+    # for fla in flavour:
+    #     flavours.append(fla.flavour)
+    # data['口味'] = flavours
+    #
+    # weights = []
+    # for w in weight:
+    #     weights.append(w.weight)
+    # data['大小'] = weights
+    #
+    # themes = []
+    # for t in theme:
+    #     themes.append(t.theme)
+    # data['主题'] = themes
+    #
     categ = ['商城']
     for c in categories:
         categ.append(c.cake_type)
