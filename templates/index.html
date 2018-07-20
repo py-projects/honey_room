@@ -260,7 +260,7 @@
                 <div id="loginBox">
                     {% if request.user.is_authenticated %}
                         <div>
-                        <span class="glyphicon glyphicon-user" aria-hidden="true">{{ username }}</span>
+                            <span class="glyphicon glyphicon-user" aria-hidden="true">{{ username }}</span>
                         </div>
                         <div class="btn">
                             <a href="/logout/" class="btn btn-primary btn-sm" role="button">退出</a>
@@ -321,7 +321,8 @@
     <div class="container">
         <div class="gallery-grids">
             <div class="col-md-8 gallery-grid glry-one">
-                <a href="products.html"><img src="/static/images/g1.jpg" class="img-responsive" alt=""/>
+{#                <a href="products.html"><img src="/static/images/g1.jpg" class="img-responsive" alt=""/>#}
+                <a href="/cakelistview/?cake_id={{ d }}"><img src="{{ d_cake_img }}" class="img-responsive" alt="" style="width: 730px;height: 417.85px"/>
                     <div class="gallery-info">
                         <p><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> view</p>
                         <a class="shop" href="single.html">SHOP NOW</a>
@@ -329,10 +330,10 @@
                     </div>
                 </a>
                 <div class="galy-info">
-                    <p>Lorem Ipsum is simply</p>
+                    <p>{{ d_cake_name }}</p>
                     <div class="galry">
                         <div class="prices">
-                            <h5 class="item_price">$95.00</h5>
+                            <h5 class="item_price">￥{{ d_cake_price }}</h5>
                         </div>
                         <div class="rating">
                             <span>☆</span>
@@ -346,7 +347,8 @@
                 </div>
             </div>
             <div class="col-md-4 gallery-grid glry-two">
-                <a href="products.html"><img src="/static/images/g2.jpg" class="img-responsive" alt=""/>
+                <a href="/cakelistview/?cake_id={{ x }}"><img src="{{ x_cake_img }}" class="img-responsive" alt="" style="width: 350px;height: 418.6px"/>
+{#                <a href="products.html"><img src="/static/images/g2.jpg" class="img-responsive" alt=""/>#}
                     <div class="gallery-info galrr-info-two">
                         <p><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> view</p>
                         <a class="shop" href="single.html">SHOP NOW</a>
@@ -354,10 +356,10 @@
                     </div>
                 </a>
                 <div class="galy-info">
-                    <p>Lorem Ipsum is simply</p>
+                    <p>{{ x_cake_name }}</p>
                     <div class="galry">
                         <div class="prices">
-                            <h5 class="item_price">$95.00</h5>
+                            <h5 class="item_price">￥{{ x_cake_price }}</h5>
                         </div>
                         <div class="rating">
                             <span>☆</span>
@@ -370,206 +372,34 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 gallery-grid ">
-                <a href="products.html"><img src="/static/images/g3.png" class="img-responsive" alt=""/>
-                    <div class="gallery-info">
-                        <p><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> view</p>
-                        <a class="shop" href="single.html">SHOP NOW</a>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
-                <div class="galy-info">
-                    <p>Lorem Ipsum is simply</p>
-                    <div class="galry">
-                        <div class="prices">
-                            <h5 class="item_price">$95.00</h5>
+
+            {% for li in lis %}
+                <div class="col-md-3 gallery-grid ">
+                    <a href="/cakelistview/?cake_id={{ li.cake_id }}"><img src="{{ li.cake_img }}" class="img-responsive" alt=""/>
+                        <div class="gallery-info">
+                            <p><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> view</p>
+                            <a class="shop" href="single.html">SHOP NOW</a>
+                            <div class="clearfix"></div>
                         </div>
-                        <div class="rating">
-                            <span>☆</span>
-                            <span>☆</span>
-                            <span>☆</span>
-                            <span>☆</span>
-                            <span>☆</span>
+                    </a>
+                    <div class="galy-info">
+                        <p>{{ li.cake_name }}</p>
+                        <div class="galry">
+                            <div class="prices">
+                                <h5 class="item_price">￥{{ li.cake_price }}</h5>
+                            </div>
+                            <div class="rating">
+                                <span>☆</span>
+                                <span>☆</span>
+                                <span>☆</span>
+                                <span>☆</span>
+                                <span>☆</span>
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 gallery-grid ">
-                <a href="products.html"><img src="/static/images/g4.png" class="img-responsive" alt=""/>
-                    <div class="gallery-info">
-                        <p><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> view</p>
-                        <a class="shop" href="single.html">SHOP NOW</a>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
-                <div class="galy-info">
-                    <p>Lorem Ipsum is simply</p>
-                    <div class="galry">
-                        <div class="prices">
-                            <h5 class="item_price">$95.00</h5>
-                        </div>
-                        <div class="rating">
-                            <span>☆</span>
-                            <span>☆</span>
-                            <span>☆</span>
-                            <span>☆</span>
-                            <span>☆</span>
-                        </div>
-                        <div class="clearfix"></div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-3 gallery-grid ">
-                <a href="products.html"><img src="/static/images/g5.png" class="img-responsive" alt=""/>
-                    <div class="gallery-info">
-                        <p><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> view</p>
-                        <a class="shop" href="single.html">SHOP NOW</a>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
-                <div class="galy-info">
-                    <p>Lorem Ipsum is simply</p>
-                    <div class="galry">
-                        <div class="prices">
-                            <h5 class="item_price">$95.00</h5>
-                        </div>
-                        <div class="rating">
-                            <span>☆</span>
-                            <span>☆</span>
-                            <span>☆</span>
-                            <span>☆</span>
-                            <span>☆</span>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 gallery-grid ">
-                <a href="products.html"><img src="/static/images/g6.png" class="img-responsive" alt=""/>
-                    <div class="gallery-info">
-                        <p><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> view</p>
-                        <a class="shop" href="single.html">SHOP NOW</a>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
-                <div class="galy-info">
-                    <p>Lorem Ipsum is simply</p>
-                    <div class="galry">
-                        <div class="prices">
-                            <h5 class="item_price">$95.00</h5>
-                        </div>
-                        <div class="rating">
-                            <span>☆</span>
-                            <span>☆</span>
-                            <span>☆</span>
-                            <span>☆</span>
-                            <span>☆</span>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 gallery-grid ">
-                <a href="products.html"><img src="/static/images/g7.png" class="img-responsive" alt=""/>
-                    <div class="gallery-info">
-                        <p><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> view</p>
-                        <a class="shop" href="single.html">SHOP NOW</a>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
-                <div class="galy-info">
-                    <p>Lorem Ipsum is simply</p>
-                    <div class="galry">
-                        <div class="prices">
-                            <h5 class="item_price">$95.00</h5>
-                        </div>
-                        <div class="rating">
-                            <span>☆</span>
-                            <span>☆</span>
-                            <span>☆</span>
-                            <span>☆</span>
-                            <span>☆</span>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 gallery-grid ">
-                <a href="products.html"><img src="/static/images/g8.png" class="img-responsive" alt=""/>
-                    <div class="gallery-info">
-                        <p><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> view</p>
-                        <a class="shop" href="single.html">SHOP NOW</a>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
-                <div class="galy-info">
-                    <p>Lorem Ipsum is simply</p>
-                    <div class="galry">
-                        <div class="prices">
-                            <h5 class="item_price">$95.00</h5>
-                        </div>
-                        <div class="rating">
-                            <span>☆</span>
-                            <span>☆</span>
-                            <span>☆</span>
-                            <span>☆</span>
-                            <span>☆</span>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 gallery-grid ">
-                <a href="products.html"><img src="/static/images/g9.png" class="img-responsive" alt=""/>
-                    <div class="gallery-info">
-                        <p><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> view</p>
-                        <a class="shop" href="single.html">SHOP NOW</a>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
-                <div class="galy-info">
-                    <p>Lorem Ipsum is simply</p>
-                    <div class="galry">
-                        <div class="prices">
-                            <h5 class="item_price">$95.00</h5>
-                        </div>
-                        <div class="rating">
-                            <span>☆</span>
-                            <span>☆</span>
-                            <span>☆</span>
-                            <span>☆</span>
-                            <span>☆</span>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 gallery-grid ">
-                <a href="products.html"><img src="/static/images/g10.png" class="img-responsive" alt=""/>
-                    <div class="gallery-info">
-                        <p><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> view</p>
-                        <a class="shop" href="single.html">SHOP NOW</a>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
-                <div class="galy-info">
-                    <p>Lorem Ipsum is simply</p>
-                    <div class="galry">
-                        <div class="prices">
-                            <h5 class="item_price">$95.00</h5>
-                        </div>
-                        <div class="rating">
-                            <span>☆</span>
-                            <span>☆</span>
-                            <span>☆</span>
-                            <span>☆</span>
-                            <span>☆</span>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </div>
@@ -640,13 +470,6 @@
 </div>
 </div>
 <!--//footer-->
-<div class="footer-bottom">
-    <div class="container">
-        <p>Copyright &copy; 2015.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/"
-                                                                                    target="_blank"
-                                                                                    title="模板之家">模板之家</a> - Collect from
-            <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
-    </div>
-</div>
+
 </body>
 </html>

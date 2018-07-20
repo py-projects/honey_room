@@ -1,3 +1,5 @@
+import random
+
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -12,10 +14,16 @@ def tj_shopping(request):  # 添加购物车
         user_id = request.COOKIES.get('user_id')
         cake_id = request.GET.get('cake_id')
         number = request.GET.get('number')
-        obj = CheckOut.objects.create(cake_id=cake_id,user_id=user_id,number=number)
-        obj.save()
-        user_name = UserPro.objects.filter(id=user_id).first().username
 
+        # 如果用户的商品为空，则添加
+        if not CheckOut.objects.filter(user_id=user_id,cake_id=cake_id):
+            CheckOut.objects.create(cake_id=cake_id,user_id=user_id,number=number)
+        else:
+            # 更新商品的数量
+            CheckOut.objects.filter(user_id=user_id,cake_id=cake_id).update(number=number)
+
+
+        user_name = UserPro.objects.filter(id=user_id).first().username
         cake_name = Cake.objects.filter(id=cake_id).first().cake_name
 
         return JsonResponse({'msg':'添加商品成功','user_name':user_name,'cake_name':cake_name})
@@ -48,3 +56,41 @@ def checkout(request):  # 购物车页面
     else:
         return redirect(reverse(user_login))
 
+
+def homepage(request):  # 主页面
+    d = random.randint(108,153)
+    d_cake = Cake.objects.filter(id=d).first()
+    d_cake_name = d_cake.cake_name
+    d_cake_price = d_cake.cake_price
+    d_cake_img = d_cake.cake_img.split(',')[0]
+
+
+    x = random.randint(108, 153)
+    x_cake = Cake.objects.filter(id=x).first()
+    x_cake_name = x_cake.cake_name
+    x_cake_price = x_cake.cake_price
+    x_cake_img = x_cake.cake_img.split(',')[0]
+
+
+    lis = []
+    for i in range(8):
+        dic = {}
+        cake_id = random.randint(108,153)
+        cake = Cake.objects.filter(id=cake_id).first()
+        cake_name = cake.cake_name
+        cake_price = cake.cake_price
+        cake_img = cake.cake_img.split(',')[0]
+        dic['cake_name'] = cake_name
+        dic['cake_price'] = cake_price
+        dic['cake_img'] = cake_img
+        dic['cake_id'] = cake_id
+        lis.append(dic)
+    print(d, '---------------------------------------')
+    return render(request,'index.html',{'lis':lis,'d_cake_name':d_cake_name,
+                                        'd_cake_price':d_cake_price,
+                                        'd_cake_img':d_cake_img,
+                                        'd':d,
+                                        'x_cake_name':x_cake_name,
+                                        'x_cake_price':x_cake_price,
+                                        'x_cake_img':x_cake_img,
+                                        'x':x})
