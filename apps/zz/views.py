@@ -58,14 +58,19 @@ def checkout(request):  # 购物车页面
 
 
 def homepage(request):  # 主页面
-    d = random.randint(108,153)
+
+    aaa = Cake.objects.all().values('id')
+    id_lis = []
+    for i in aaa:
+        id_lis.append(i['id'])
+    d = id_lis[random.randint(0,len(id_lis))]
     d_cake = Cake.objects.filter(id=d).first()
     d_cake_name = d_cake.cake_name
     d_cake_price = d_cake.cake_price
     d_cake_img = d_cake.cake_img.split(',')[0]
 
 
-    x = random.randint(108, 153)
+    x = id_lis[random.randint(0, len(id_lis))]
     x_cake = Cake.objects.filter(id=x).first()
     x_cake_name = x_cake.cake_name
     x_cake_price = x_cake.cake_price
@@ -75,7 +80,7 @@ def homepage(request):  # 主页面
     lis = []
     for i in range(8):
         dic = {}
-        cake_id = random.randint(108,153)
+        cake_id = id_lis[random.randint(0,len(id_lis))]
         cake = Cake.objects.filter(id=cake_id).first()
         cake_name = cake.cake_name
         cake_price = cake.cake_price
@@ -85,7 +90,6 @@ def homepage(request):  # 主页面
         dic['cake_img'] = cake_img
         dic['cake_id'] = cake_id
         lis.append(dic)
-    print(d, '---------------------------------------')
     return render(request,'index.html',{'lis':lis,'d_cake_name':d_cake_name,
                                         'd_cake_price':d_cake_price,
                                         'd_cake_img':d_cake_img,
