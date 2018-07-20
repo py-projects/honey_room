@@ -56,6 +56,7 @@ class Cake(models.Model):
     cake_number = models.CharField(max_length=10, verbose_name='库存', default=1)
     cake_discount = models.CharField(max_length=10, verbose_name='现价', default=10000)
     cake_detail = models.TextField(verbose_name='详情')
+    # 筛选的属性
     cake_relation = models.ForeignKey(Relation, on_delete=models.CASCADE, verbose_name='关系')
     cake_weight = models.ForeignKey(Weight, on_delete=models.CASCADE, verbose_name='重量')
     cake_flavour = models.ForeignKey(Flavour, on_delete=models.CASCADE, verbose_name='口味')

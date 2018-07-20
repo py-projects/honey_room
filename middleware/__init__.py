@@ -10,8 +10,3 @@ from django.shortcuts import redirect
 #         if not request.user.is_authenticated and request.path in ok:
 #             return redirect('')
 
-
-# class HeadMiddleware(MiddlewareMixin):
-#     def process_response(self, request, response):
-#
-#         return response

@@ -34,4 +34,6 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     # 商品列表
     path('cake/', main_views.cake, name='cake'),
+    # 请求顶部菜单
+    path('head/', main_views.head, name='head'),
 ]
