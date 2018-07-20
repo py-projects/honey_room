@@ -17,9 +17,9 @@
     <!-- cart -->
     <script src="/static/js/simpleCart.min.js"></script>
     <!-- cart -->
-{% block script %}
+    {% block script %}
 
-{% endblock %}
+    {% endblock %}
 </head>
 <body>
 <!--header-->
@@ -255,24 +255,35 @@
             <div class="header-right login">
                 <a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
                 <div id="loginBox">
-                    <form id="loginForm">
-                        <fieldset id="body">
-                            <fieldset>
-                                <label for="email">Email Address</label>
-                                <input type="text" name="email" id="email">
+                    {% if request.user.is_authenticated %}
+                        <div>
+                            <span class="glyphicon glyphicon-user" aria-hidden="true">{{ username }}</span>
+                        </div>
+                        <div class="btn">
+                            <a href="/logout/" class="btn btn-primary btn-sm" role="button">退出</a>
+                        </div>
+                    {% else %}
+                        <form id="loginForm" method="post" action="/index/">
+                            {% csrf_token %}
+                            <fieldset id="body">
+                                <fieldset>
+                                    <label for="username">username</label>
+                                    <input type="text" name="username" id="username">
+                                </fieldset>
+                                <fieldset>
+                                    <label for="password">Password</label>
+                                    <input type="password" name="password" id="password">
+                                </fieldset>
+                                <input type="submit" id="login" value="Sign in">
+                                <label for="checkbox"><input type="checkbox" id="checkbox"> <i>Remember me</i></label>
                             </fieldset>
-                            <fieldset>
-                                <label for="password">Password</label>
-                                <input type="password" name="password" id="password">
-                            </fieldset>
-                            <input type="submit" id="login" value="Sign in">
-                            <label for="checkbox"><input type="checkbox" id="checkbox"> <i>Remember me</i></label>
-                        </fieldset>
-                        <p>New User ? <a class="sign" href="account.html">Sign Up</a> <span><a href="#">Forgot your password?</a></span>
-                        </p>
-                    </form>
+                            <p>New User ? <a class="sign" href="/register/">Sign Up</a> <span><a href="#">Forgot your password?</a></span>
+                            </p>
+                        </form>
+                    {% endif %}
                 </div>
             </div>
+
             <div class="header-right cart">
                 <a href="#"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a>
                 <div class="cart-box">
@@ -345,10 +356,13 @@
     </div>
 </div>
 </div>
-	<div class="footer-bottom">
-		<div class="container">
-			<p>Copyright &copy; 2015.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
-		</div>
-	</div>
+<div class="footer-bottom">
+    <div class="container">
+        <p>Copyright &copy; 2015.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/"
+                                                                                    target="_blank"
+                                                                                    title="模板之家">模板之家</a> - Collect from
+            <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
+    </div>
+</div>
 </body>
 </html>

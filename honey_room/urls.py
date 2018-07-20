@@ -44,6 +44,7 @@ urlpatterns = [
     path('cakelistview/', main_views.CakeListView.as_view(), name='cakelistview'),
     path('tj_shopping/',zz.views.tj_shopping,name='ti_shopping'),
     path('checkout/',zz.views.checkout,name='checkout'),
+    path('delect_view/',zz.views.delect_view,name='delect_view')
 
 ]
 

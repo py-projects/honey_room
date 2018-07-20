@@ -48,3 +48,11 @@ def checkout(request):  # 购物车页面
     else:
         return redirect(reverse(user_login))
 
+def delect_view(request,cake_id=112):  #购物车删除
+    if request.user.is_authenticated:
+        user_id = request.COOKIES.get('user_id')
+        user_id01 = CheckOut.objects.filter(user_id=user_id,cake_id=cake_id)
+        if user_id01.exists():
+            user_id01.delete()
+        return render(request,'checkout.html')
+    return render(request, 'index.html')
