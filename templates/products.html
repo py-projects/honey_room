@@ -35,7 +35,7 @@ function hideURLbar() {
             <div class="col-md-9 product-model-sec">
                 {% for cake, img in cakes %}
                     <div class="product-grid" id="{{ cake.id }}">
-                        <a href="cake_detalis?cake_id={{ cake.id }}">
+                        <a href="/cakelistview/?cake_id={{ cake.id }}">
                             <div class="more-product"><span> </span></div>
                             <div class="product-img b-link-stripe b-animate-go  thickbox">
                                 <img src="{{ img|first }}" class="img-responsive" alt="">

@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.views.generic import TemplateView
 
 import xadmin
@@ -21,6 +22,7 @@ import main.views as main_views
 from users import views
 from users.views import LogoutView
 from xadmin.plugins import xversion
+import zz.views
 
 # version模块自动注册需要版本控制的 Model
 xversion.register_models()
@@ -28,12 +30,23 @@ xadmin.autodiscover()
 
 urlpatterns = [
     path('xadmin/', xadmin.site.urls),
+    # 首页
     path('', TemplateView.as_view(template_name="index.html"), name="index"),
+    # 登录
     path('index/', views.user_login, name='index'),
+    # 登出
     path('logout/', LogoutView.as_view(), name="logout"),
+    # 注册
     path('register/', views.register, name='register'),
     # 商品列表
     path('cake/', main_views.cake, name='cake'),
     # 请求顶部菜单
     path('head/', main_views.head, name='head'),
+    # 商品详情页
+    # path('cakelistview/(?P<cake_id>\d+)/$', main_views.CakeListView.as_view(), name ='cakelistview')
+    path('cakelistview/', main_views.CakeListView.as_view(), name='cakelistview'),
+    # 添加到购物车
+    path('tj_shopping/', zz.views.tj_shopping, name='ti_shopping'),
+    # 购物车页面
+    path('checkout/', zz.views.checkout, name='checkout'),
 ]

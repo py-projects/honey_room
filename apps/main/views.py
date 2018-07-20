@@ -1,6 +1,8 @@
 from django.core import serializers
 from django.http import JsonResponse
 from django.shortcuts import render
+from django.views import View
+
 from main.models import *
 from django.core.paginator import Paginator
 
@@ -22,6 +24,7 @@ def cake(request):
             cakes = Cake.objects.all().order_by('id')
         else:
             cakes = Cake.objects.filter(cake_categories__cake_type=value)
+
     elif field == 'cake_relation':
         cakes = Cake.objects.filter(cake_relation__relation=value).order_by('id')
     pt = Paginator(cakes, 9)
@@ -47,37 +50,35 @@ def head(request):
     data['weight'] = weight
     data['theme'] = theme
 
-    # relation = Relation.objects.filter(is_active=True)
-    # flavour = Flavour.objects.filter(is_active=True)
-    # weight = Weight.objects.filter(is_active=True)
-    # theme = Theme.objects.filter(is_active=True)
-    # categories = Categories.objects.filter(is_active=True)
-
-    # 序列化
-    # relations = []
-    # for rel in relation:
-    #     relations.append(rel.relation)
-    #
-    # data['关系'] = relations
-    #
-    # flavours = []
-    # for fla in flavour:
-    #     flavours.append(fla.flavour)
-    # data['口味'] = flavours
-    #
-    # weights = []
-    # for w in weight:
-    #     weights.append(w.weight)
-    # data['大小'] = weights
-    #
-    # themes = []
-    # for t in theme:
-    #     themes.append(t.theme)
-    # data['主题'] = themes
-    #
     categ = ['商城']
     for c in categories:
         categ.append(c.cake_type)
     data['type'] = categ
 
     return JsonResponse(data)
+
+
+class CakeListView(View):
+    #详情页
+    def get(self,request):
+        cake_id = request.GET.get("cake_id")
+        cake = Cake.objects.get(id = cake_id)
+        print(cake)
+        img=Cake.objects.get(id=cake_id).cake_img
+        i =img.replace('http://www.holiland.comhttp://www.holiland.com/','http://www.holiland.com/')
+        cakeimgs = i.split(',')
+
+        img_01 = Cake.objects.get(id=cake_id).cake_detail
+        img_lis = img_01.split(',')
+
+        cake_flavour = cake.cake_flavour
+        if cake_flavour:
+            tags = Cake.objects.filter(cake_flavour=cake_flavour)[:4]
+        else:
+            tags = []
+        print(tags)
+
+        return render(request, 'single.html',{"cake":cake,
+                                              "cakeimgs":cakeimgs,
+                                              'img_lis':img_lis,
+                                              'tags':tags})
