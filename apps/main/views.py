@@ -1,8 +1,10 @@
-from django.core.paginator import Paginator
+from django.core import serializers
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.views import View
 
 from main.models import *
+from django.core.paginator import Paginator
 
 # Create your views here.
 
@@ -17,8 +19,12 @@ def cake(request):
     # 获取页数
     if argument.get('page'):
         page = argument.get('page')
-    if not field:
-        cakes = Cake.objects.all().order_by('id')
+    if field == 'categories':
+        if value == '商城':
+            cakes = Cake.objects.all().order_by('id')
+        else:
+            cakes = Cake.objects.filter(cake_categories__cake_type=value)
+
     elif field == 'cake_relation':
         cakes = Cake.objects.filter(cake_relation__relation=value).order_by('id')
     pt = Paginator(cakes, 9)
@@ -27,7 +33,29 @@ def cake(request):
     cakes = zip(cakes_page, images)
     return render(request, 'products.html', {'cakes': cakes,
                                              'page': cakes_page,
-                                             'classify': '全部商品'})
+                                             'classify': value})
+
+
+# 返回顶部菜单数据
+def head(request):
+    print('------------------------开始工作')
+    data = {}
+    relation = serializers.serialize('json', Relation.objects.filter(is_active=True))
+    flavour = serializers.serialize('json', Flavour.objects.filter(is_active=True))
+    weight = serializers.serialize('json', Weight.objects.filter(is_active=True))
+    theme = serializers.serialize('json', Theme.objects.filter(is_active=True))
+    categories = Categories.objects.filter(is_active=True)
+    data['relation'] = relation
+    data['flavour'] = flavour
+    data['weight'] = weight
+    data['theme'] = theme
+
+    categ = ['商城']
+    for c in categories:
+        categ.append(c.cake_type)
+    data['type'] = categ
+
+    return JsonResponse(data)
 
 
 class CakeListView(View):

@@ -23,6 +23,7 @@ from users import views
 from users.views import LogoutView
 from xadmin.plugins import xversion
 import zz.views
+
 # version模块自动注册需要版本控制的 Model
 xversion.register_models()
 xadmin.autodiscover()
@@ -39,12 +40,22 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     # 商品列表
     path('cake/', main_views.cake, name='cake'),
+    path('tj_shopping/',zz.views.tj_shopping,name='ti_shopping'),
+
+    path('checkout/',zz.views.checkout,name='checkout'),
+
+    path('delect_view/',zz.views.delect_view,name='delect_view'),
+
+    path('homepage/',zz.views.homepage,name='homepage'),
+
+
+    # 请求顶部菜单
+    path('head/', main_views.head, name='head'),
     # 商品详情页
     # path('cakelistview/(?P<cake_id>\d+)/$', main_views.CakeListView.as_view(), name ='cakelistview')
     path('cakelistview/', main_views.CakeListView.as_view(), name='cakelistview'),
-    path('tj_shopping/',zz.views.tj_shopping,name='ti_shopping'),
-    path('checkout/',zz.views.checkout,name='checkout'),
-    path('delect_view/',zz.views.delect_view,name='delect_view')
-
+    # 添加到购物车
+    path('tj_shopping/', zz.views.tj_shopping, name='ti_shopping'),
+    # 购物车页面
+    path('checkout/', zz.views.checkout, name='checkout'),
 ]
-
