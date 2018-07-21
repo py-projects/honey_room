@@ -138,19 +138,20 @@ class CakeListView(View):
         cake_id = request.GET.get("cake_id")
         cake = Cake.objects.get(id = cake_id)
         print(cake)
+
         img=Cake.objects.get(id=cake_id).cake_img
         i =img.replace('http://www.holiland.comhttp://www.holiland.com/','http://www.holiland.com/')
         cakeimgs = i.split(',')
 
         img_01 = Cake.objects.get(id=cake_id).cake_detail
-        img_lis = img_01.split(',')
+        img_0 = img_01.replace('http://www.holiland.comhttp://www.holiland.com/', 'http://www.holiland.com/')
+        img_lis = img_0.split(',')
 
         cake_flavour = cake.cake_flavour
         if cake_flavour:
             tags = Cake.objects.filter(cake_flavour=cake_flavour)[:4]
         else:
             tags = []
-        print(tags)
 
         return render(request, 'single.html',{"cake":cake,
                                               "cakeimgs":cakeimgs,
