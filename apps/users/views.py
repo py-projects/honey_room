@@ -37,7 +37,7 @@ def user_login(request):
             return render(request, 'index.html', {'msg': '用户名或密码错误'})
 
     elif request.method == "GET":
-        return render(request, "index.html", {})
+        return render(request, "index.html")
 
 
 class LogoutView(View):

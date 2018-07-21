@@ -21,9 +21,9 @@
     <!-- cart -->
     <script src="/static/js/simpleCart.min.js"></script>
     <!-- cart -->
-{% block script %}
+    {% block script %}
 
-{% endblock %}
+    {% endblock %}
 </head>
 <body>
 <!--header-->
@@ -54,8 +54,9 @@
             <div class="header-right search-box">
                 <a href="#"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
                 <div class="search">
-                    <form class="navbar-form">
-                        <input type="text" class="form-control">
+                    <form class="navbar-form" method="get" action="/cake/">
+                        <input type="text" class="form-control" name="value">
+                        <input type="hidden" value="search" name="type">
                         <button type="submit" class="btn btn-default" aria-label="Left Align">
                             Search
                         </button>
@@ -78,13 +79,13 @@
                             <input type="submit" id="login" value="Sign in">
                             <label for="checkbox"><input type="checkbox" id="checkbox"> <i>Remember me</i></label>
                         </fieldset>
-                        <p>New User ? <a class="sign" href="account.html">Sign Up</a> <span><a href="#">Forgot your password?</a></span>
+                        <p>New User ? <a class="sign" href="/register/">Sign Up</a> <span><a href="#">Forgot your password?</a></span>
                         </p>
                     </form>
                 </div>
             </div>
             <div class="header-right cart">
-                <a href="checkout/"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a>
+                <a href="/checkout/"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a>
                 <div class="cart-box">
                     <h4><a href="checkout.html">
                         <span class="simpleCart_total"> $0.00 </span> (<span id="simpleCart_quantity"
@@ -156,44 +157,156 @@
     </div>
 </div>
 </div>
-	<div class="footer-bottom">
-		<div class="container">
-			<p>Copyright &copy; 2015.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
-		</div>
-	</div>
+<div class="footer-bottom">
+    <div class="container">
+        <p>Copyright &copy; 2015.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/"
+                                                                                    target="_blank"
+                                                                                    title="模板之家">模板之家</a> - Collect from
+            <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
+    </div>
+</div>
 <!--请求顶部菜单数据-->
 <script>
-    $.ajax({url: '/head/',
-            dataType: 'json',
-            success: function (data) {
-                console.log(data);
-                console.log(data.flavour);
-                for (i in data.type){
-                    $('#top_menu').append("<li class=\"dropdown\">\n" +
-                        "                        <a href=\"cake/?page=1\" class=\"dropdown-toggle\">商城<b class=\"caret\"></b></a>\n" +
-                        "                        <ul class=\"dropdown-menu multi-column columns-4\">\n" +
-                        "                            <div class=\"row\" id='child_menu'>\n"+
-                        "                            </div>\n" +
-                        "                        </ul>\n" +
-                        "                    </li>");
-                    let a = $(".dropdown-toggle")[i];
-                    a.innerText = data.type[i];
-                    a.setAttribute("href", "/cake/?page=1&type=categories&value="+ data.type[i])
-                }
-                if (data.flavour){
-                    let child_menu = $("#child_menu")[0];
+    $.ajax({
+        url: '/head/',
+        dataType: 'json',
+        success: function (data) {
+            console.log(data);
+            console.log(data.flavour);
+            for (i in data.type) {
+                $('#top_menu').append("<li class=\"dropdown\">\n" +
+                    "                        <a href=\"cake/?page=1\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">商城<b class=\"caret\"></b></a>\n" +
+                    "                        <ul class=\"dropdown-menu multi-column columns-4\">\n" +
+                    "                            <div class=\"row\" id='child_menu'>\n" +
+                    "                            </div>\n" +
+                    "                        </ul>\n" +
+                    "                    </li>");
+                let a = $(".dropdown-toggle")[i];
+                a.innerText = data.type[i];
+                a.setAttribute("href", "/cake/?page=1&type=categories&value=" + data.type[i]);
+                {#添加口味筛选条件#}
+                if (data.flavour) {
+                    let child_menu = $(".row")[i];
                     console.log(child_menu);
-                    let h4_emt = document.createElement('<h4>口味</h4>');
-                    let ul_emt = document.createElement('<ul class="multi-column-dropdown"></ul>');
-                    child_menu.appendChild(h4_emt);
-                    for (dic in data.flavour){
-                        let li_emt = document.createElement('<li><a class="list" href="/cake/?page=1&type=flavour&value='
-                                                +data.flavour.pk+'">'+data.flavour.fields.flavour+'</a></li>');
+                    let h4_emt = document.createElement('h4');
+                    h4_emt.innerText = '口味';
+                    <!-- ul class="multi-column-dropdown"-->
+                    let ul_emt = document.createElement('ul');
+                    ul_emt.setAttribute('class', 'multi-column-dropdown');
+                    let div_emt = document.createElement('div');
+                    div_emt.setAttribute('class', 'col-sm-3');
+                    div_emt.appendChild(h4_emt);
+                    for (let d in data.flavour) {
+                        {#<li><a class="list" href="/cake/?page=1&type=flavour&value='#}
+                        {#+data.flavour.pk+'">'+data.flavour.fields.flavour+'</a></li>#}
+                        let li_emt = document.createElement('li');
+                        let a_emt = document.createElement('a');
+                        a_emt.setAttribute('class', 'list');
+                        a_emt.setAttribute('href', '/more/?page=1&type='+data.type[i]+'&second=flavour'+
+                                           '&thirdly='+data.flavour[d].fields.flavour);
+                        a_emt.innerText = data.flavour[d].fields.flavour;
+
+                        li_emt.appendChild(a_emt);
                         ul_emt.appendChild(li_emt);
                     }
-                    child_menu.appendChild(ul_emt);
+                    div_emt.appendChild(ul_emt);
+                    child_menu.appendChild(div_emt);
                 }
-            }});
+
+                {#添加大小筛选条件#}
+                if (data.weight) {
+                    {#class="col-sm-3"#}
+                    let child_menu = $(".row")[i];
+                    {#console.log(child_menu);#}
+                    let div_emt = document.createElement('div');
+                    div_emt.setAttribute('class', 'col-sm-3');
+                    let h4_emt = document.createElement('h4');
+                    h4_emt.innerText = '大小';
+                    <!-- ul class="multi-column-dropdown"-->
+                    let ul_emt = document.createElement('ul');
+                    ul_emt.setAttribute('class', 'multi-column-dropdown');
+                    div_emt.appendChild(h4_emt);
+                    console.log(data.weight[0]);
+                    for (let d in data.weight) {
+                        {#<li><a class="list" href="/cake/?page=1&type=flavour&value='#}
+                        {#+data.flavour.pk+'">'+data.flavour.fields.flavour+'</a></li>#}
+                        let li_emt = document.createElement('li');
+                        let a_emt = document.createElement('a');
+                        a_emt.setAttribute('class', 'list');
+                        a_emt.setAttribute('href', '/more/?page=1&type='+data.type[i]+'&second=weight'+
+                                           '&thirdly='+data.weight[d].fields.weight);
+                        a_emt.innerText = data.weight[d].fields.weight;
+
+                        li_emt.appendChild(a_emt);
+                        ul_emt.appendChild(li_emt);
+                    }
+                    div_emt.appendChild(ul_emt);
+                    child_menu.appendChild(div_emt);
+                }
+
+                {#添加关系筛选条件#}
+                if (data.relation) {
+                    {#class="col-sm-3"#}
+                    let child_menu = $(".row")[i];
+                    {#console.log(child_menu);#}
+                    let div_emt = document.createElement('div');
+                    div_emt.setAttribute('class', 'col-sm-3');
+                    let h4_emt = document.createElement('h4');
+                    h4_emt.innerText = '关系';
+                    <!-- ul class="multi-column-dropdown"-->
+                    let ul_emt = document.createElement('ul');
+                    ul_emt.setAttribute('class', 'multi-column-dropdown');
+                    div_emt.appendChild(h4_emt);
+                    for (let d in data.relation) {
+                        {#<li><a class="list" href="/cake/?page=1&type=flavour&value='#}
+                        {#+data.flavour.pk+'">'+data.flavour.fields.flavour+'</a></li>#}
+                        let li_emt = document.createElement('li');
+                        let a_emt = document.createElement('a');
+                        a_emt.setAttribute('class', 'list');
+                        a_emt.setAttribute('href', '/more/?page=1&type='+data.type[i]+'&second=relation'+
+                                           '&thirdly='+data.relation[d].fields.relation);
+                        a_emt.innerText = data.relation[d].fields.relation;
+
+                        li_emt.appendChild(a_emt);
+                        ul_emt.appendChild(li_emt);
+                    }
+                    div_emt.appendChild(ul_emt);
+                    child_menu.appendChild(div_emt);
+                }
+
+                {#添加主题筛选条件#}
+                if (data.theme) {
+                    {#class="col-sm-3"#}
+                    let child_menu = $(".row")[i];
+                    {#console.log(child_menu);#}
+                    let div_emt = document.createElement('div');
+                    div_emt.setAttribute('class', 'col-sm-3');
+                    let h4_emt = document.createElement('h4');
+                    h4_emt.innerText = '主题';
+                    <!-- ul class="multi-column-dropdown"-->
+                    let ul_emt = document.createElement('ul');
+                    ul_emt.setAttribute('class', 'multi-column-dropdown');
+                    div_emt.appendChild(h4_emt);
+                    for (let d in data.relation) {
+                        {#<li><a class="list" href="/cake/?page=1&type=flavour&value='#}
+                        {#+data.flavour.pk+'">'+data.flavour.fields.flavour+'</a></li>#}
+                        let li_emt = document.createElement('li');
+                        let a_emt = document.createElement('a');
+                        a_emt.setAttribute('class', 'list');
+                        a_emt.setAttribute('href', '/more/?page=1&type='+data.type[i]+'&second=theme'+
+                                           '&thirdly='+data.theme[d].fields.theme);
+                        a_emt.innerText = data.theme[d].fields.theme;
+
+                        li_emt.appendChild(a_emt);
+                        ul_emt.appendChild(li_emt);
+                    }
+                    div_emt.appendChild(ul_emt);
+                    child_menu.appendChild(div_emt);
+                }
+            }
+
+        }
+    });
 </script>
 </body>
 </html>

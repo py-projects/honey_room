@@ -1,30 +1,30 @@
 {% extends 'base.html' %}
 
 {% block title %}
-{{ classify }}
+    {{ classify }}
 {% endblock %}
 
 {% block script %}
-<!-- Custom Theme files -->
+    <!-- Custom Theme files -->
 
-<script type="application/x-javascript"> addEventListener("load", function () {
-    setTimeout(hideURLbar, 0);
-}, false);
+    <script type="application/x-javascript"> addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+    }, false);
 
-function hideURLbar() {
-    window.scrollTo(0, 1);
-} </script>
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    } </script>
 
-<!-- the jScrollPane script -->
-<script type="text/javascript" src="/static/js/jquery.jscrollpane.min.js"></script>
-<script type="text/javascript" id="sourcecode">
-    $(function () {
-        $('.scroll-pane').jScrollPane();
-    });
-</script>
-<!-- //the jScrollPane script -->
-<script type="text/javascript" src="/static/js/jquery.mousewheel.js"></script>
-<!-- the mousewheel plugin -->
+    <!-- the jScrollPane script -->
+    <script type="text/javascript" src="/static/js/jquery.jscrollpane.min.js"></script>
+    <script type="text/javascript" id="sourcecode">
+        $(function () {
+            $('.scroll-pane').jScrollPane();
+        });
+    </script>
+    <!-- //the jScrollPane script -->
+    <script type="text/javascript" src="/static/js/jquery.mousewheel.js"></script>
+    <!-- the mousewheel plugin -->
 {% endblock %}
 
 {% block content %}
@@ -34,7 +34,7 @@ function hideURLbar() {
             <h2>{{ classify }}</h2>
             <div class="col-md-9 product-model-sec">
                 {% for cake, img in cakes %}
-                    <div class="product-grid" id="{{ cake.id }}">
+                    <div class="product-grid">
                         <a href="/cakelistview/?cake_id={{ cake.id }}">
                             <div class="more-product"><span> </span></div>
                             <div class="product-img b-link-stripe b-animate-go  thickbox">
@@ -56,223 +56,62 @@ function hideURLbar() {
                                     </p>
                                     <p class="disc">[15% Off]</p>
                                 </div>
-                                <input type="text" class="item_quantity" value="1"/>
-                                <input type="button" class="item_add items" value="Add">
+                                <input type="text" class="item_quantity" value="1" id="number{{ cake.id }}"/>
+                                <input id="{{ cake.id }}" type="button" class="item_add items" value="Add">
                                 <div class="clearfix"></div>
                             </div>
                         </div>
                     </div>
                 {% endfor %}
-                <nav aria-label="...">
+                <nav aria-label="Page navigation">
                     <ul class="pagination">
                         {% for i in page.paginator.page_range %}
-                            <a href="/cake?page={{ i }}" aria-label="Previous"><span
+                            {% if page.number == i %}
+                                <li class="active">
+                                    {% else %}
+                                <li>
+                            {% endif %}
+                        {% if thirdly %}
+                            <a href="/more?page={{ i }}+{{ type }}" aria-label="Previous"><span
                                     aria-hidden="true">{{ i }}</span></a>
+                        {% else %}
+                            <a href="/cake?page={{ i }}&type={{ type }}&value={{ classify }}"
+                               aria-label="Previous"><span
+                                    aria-hidden="true">{{ i }}</span></a>
+                        {% endif %}
+                        </li>
                         {% endfor %}
                     </ul>
                 </nav>
             </div>
             <!-- left menu -->
             <div class="col-md-3 rsidebar span_1_of_left">
-                <section class="sky-form">
-                    <div class="product_right">
-                        <h4 class="m_2"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>Categories
-                        </h4>
-                        <div class="tab1">
-                            <ul class="place">
-                                <li class="sort">Regular Cakes</li>
-                                <li class="by"><span class="glyphicon glyphicon-triangle-bottom"
-                                                     aria-hidden="true"></span></li>
-                            </ul>
-                            <div class="clearfix"></div>
-                            <div class="single-bottom">
-                                <a href="#"><p>Cassata</p></a>
-                                <a href="#"><p>Cheesecake</p></a>
-                                <a href="#"><p>Coconut cake</p></a>
-                                <a href="#"><p>Cupcake</p></a>
+                {% for datum, child in data.items %}
+                    <section class="sky-form">
+                        <h4><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>{{ datum }}</h4>
+                        <div class="row row1 scroll-pane">
+                            <div class="col col-4">
+                                {% for c in child %}
+                                    <label class="radio"><input type="radio" name="checkbox"><i></i>{{ c }}</label>
+                                {% endfor %}
                             </div>
                         </div>
-                        <div class="tab2">
-                            <ul class="place">
-                                <li class="sort">Special Cakes</li>
-                                <li class="by"><span class="glyphicon glyphicon-triangle-bottom"
-                                                     aria-hidden="true"></span></li>
-                            </ul>
-                            <div class="clearfix"></div>
-                            <div class="single-bottom">
-                                <a href="#"><p>Delicious Cakes</p></a>
-                                <a href="#"><p>Gingerbread</p></a>
-                            </div>
-                        </div>
-                        <div class="tab3">
-                            <ul class="place">
-                                <li class="sort">Eggless Cake</li>
-                                <li class="by"><span class="glyphicon glyphicon-triangle-bottom"
-                                                     aria-hidden="true"></span></li>
-                            </ul>
-                            <div class="clearfix"></div>
-                            <div class="single-bottom">
-                                <a href="#"><p>Milk Cakes</p></a>
-                                <a href="#"><p>Fruits Cakes</p></a>
-                            </div>
-                        </div>
-                        <div class="tab4">
-                            <ul class="place">
-                                <li class="sort">2-3 Tier Cakes</li>
-                                <li class="by"><span class="glyphicon glyphicon-triangle-bottom"
-                                                     aria-hidden="true"></span></li>
-                            </ul>
-                            <div class="clearfix"></div>
-                            <div class="single-bottom">
-                                <a href="#"><p>Twist 4 tier</p></a>
-                                <a href="#"><p>Floral Tier</p></a>
-                                <a href="#"><p>Double Heartshape</p></a>
-                            </div>
-                        </div>
-                        <!--script-->
-                        <script>
-                            $(document).ready(function () {
-                                $(".tab1 .single-bottom").hide();
-                                $(".tab2 .single-bottom").hide();
-                                $(".tab3 .single-bottom").hide();
-                                $(".tab4 .single-bottom").hide();
-                                $(".tab5 .single-bottom").hide();
-
-                                $(".tab1 ul").click(function () {
-                                    $(".tab1 .single-bottom").slideToggle(300);
-                                    $(".tab2 .single-bottom").hide();
-                                    $(".tab3 .single-bottom").hide();
-                                    $(".tab4 .single-bottom").hide();
-                                    $(".tab5 .single-bottom").hide();
-                                })
-                                $(".tab2 ul").click(function () {
-                                    $(".tab2 .single-bottom").slideToggle(300);
-                                    $(".tab1 .single-bottom").hide();
-                                    $(".tab3 .single-bottom").hide();
-                                    $(".tab4 .single-bottom").hide();
-                                    $(".tab5 .single-bottom").hide();
-                                })
-                                $(".tab3 ul").click(function () {
-                                    $(".tab3 .single-bottom").slideToggle(300);
-                                    $(".tab4 .single-bottom").hide();
-                                    $(".tab5 .single-bottom").hide();
-                                    $(".tab2 .single-bottom").hide();
-                                    $(".tab1 .single-bottom").hide();
-                                })
-                                $(".tab4 ul").click(function () {
-                                    $(".tab4 .single-bottom").slideToggle(300);
-                                    $(".tab5 .single-bottom").hide();
-                                    $(".tab3 .single-bottom").hide();
-                                    $(".tab2 .single-bottom").hide();
-                                    $(".tab1 .single-bottom").hide();
-                                })
-                                $(".tab5 ul").click(function () {
-                                    $(".tab5 .single-bottom").slideToggle(300);
-                                    $(".tab4 .single-bottom").hide();
-                                    $(".tab3 .single-bottom").hide();
-                                    $(".tab2 .single-bottom").hide();
-                                    $(".tab1 .single-bottom").hide();
-                                })
-                            });
-                        </script>
-                        <!--//script -->
-                    </div>
-                </section>
-                <section class="sky-form">
-                    <h4><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>DISCOUNTS</h4>
-                    <div class="row row1 scroll-pane">
-                        <div class="col col-4">
-                            <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>Upto - 10%
-                                (20)</label>
-                        </div>
-                        <div class="col col-4">
-                            <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>70% - 60% (5)</label>
-                            <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>50% - 40% (7)</label>
-                            <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>30% - 20% (2)</label>
-                            <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>10% - 5% (5)</label>
-                            <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>30% - 20% (7)</label>
-                            <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>10% - 5% (2)</label>
-                            <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Other(50)</label>
-                        </div>
-                    </div>
-                </section>
-                <section class="sky-form">
-                    <h4><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>Price</h4>
-                    <ul class="dropdown-menu1">
-                        <li><a href="">
-                            <div id="slider-range"></div>
-                            <input type="text" id="amount"
-                                   style="border: 0; font-weight: NORMAL;   font-family: 'Dosis-Regular';"/>
-                        </a></li>
-                    </ul>
-                </section>
-                <!---->
-                <script type="text/javascript" src="js/jquery-ui.min.js"></script>
-                <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
-                <script type='text/javascript'>//<![CDATA[
-                $(window).load(function () {
-                    $("#slider-range").slider({
-                        range: true,
-                        min: 0,
-                        max: 100000,
-                        values: [500, 100000],
-                        slide: function (event, ui) {
-                            $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
-                        }
-                    });
-                    $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $("#slider-range").slider("values", 1));
-
-                });//]]>
-                </script>
-                <!---->
-                <section class="sky-form">
-                    <h4><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>By Flavour</h4>
-                    <div class="row row1 scroll-pane">
-                        <div class="col col-4">
-                            <label class="checkbox"><input type="checkbox" name="checkbox"
-                                                           checked=""><i></i>Vanilla</label>
-                        </div>
-                        <div class="col col-4">
-                            <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Chocolate</label>
-                            <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Butterscotch</label>
-                            <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Strawberry</label>
-                            <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Black Forest</label>
-                            <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Mixed Fruit</label>
-                            <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Honey</label>
-                        </div>
-                    </div>
-                </section>
-                <section class="sky-form">
-                    <h4><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>Weight</h4>
-                    <div class="row row1 scroll-pane">
-                        <div class="col col-4">
-                            <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>Half
-                                KG</label>
-                        </div>
-                        <div class="col col-4">
-                            <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>One KG</label>
-                            <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>TwO KG</label>
-                            <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>More</label>
-                        </div>
-                    </div>
-                </section>
-                <section class="sky-form">
-                    <h4><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>Color</h4>
-                    <div class="row row1 scroll-pane">
-                        <div class="col col-4">
-                            <label class="checkbox"><input type="checkbox" name="checkbox"
-                                                           checked=""><i></i>White</label>
-                        </div>
-                        <div class="col col-4">
-                            <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Pink</label>
-                            <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Gold</label>
-                            <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Silver</label>
-                        </div>
-                    </div>
-                </section>
+                    </section>
+                {% endfor %}
             </div>
             <div class="clearfix"></div>
         </div>
     </div>
     <!--//products-->
+    <script>
+        {#console.log($("input[value='Add']"));#}
+        $("input[value='Add']").click(function () {
+            console.log('--------------------------------------------');
+            var cake_id = this.getAttribute('id');
+            var number = $("#number" + cake_id).attr('value');
+            $.get('/tj_shopping/', {'cake_id': cake_id, 'number': number}, function (data) {
+                alert(data.msg);
+            });
+        });
+    </script>
 {% endblock %}
