@@ -74,7 +74,7 @@ def homepage(request):  # 主页面显示
         id_lis.append(i['id'])  # 将字典转换成列表
 
     # 得到一个随机值作为id_lis的索引
-    d = id_lis[random.randint(0,len(id_lis))]
+    d = id_lis[random.randint(0,len(id_lis)-1)]
     d_cake = Cake.objects.filter(id=d).first()
 
     d_cake_name = d_cake.cake_name  # 物品名字
@@ -82,7 +82,7 @@ def homepage(request):  # 主页面显示
     d_cake_img = d_cake.cake_img.split(',')[0]  # 图片
 
 
-    x = id_lis[random.randint(0, len(id_lis))]
+    x = id_lis[random.randint(0, len(id_lis)-1)]
     x_cake = Cake.objects.filter(id=x).first()
     x_cake_name = x_cake.cake_name
     x_cake_price = x_cake.cake_price
@@ -92,7 +92,7 @@ def homepage(request):  # 主页面显示
     lis = []
     for i in range(8):
         dic = {}
-        cake_id = id_lis[random.randint(0,len(id_lis))]
+        cake_id = id_lis[random.randint(0,len(id_lis)-1)]
         cake = Cake.objects.filter(id=cake_id).first()
         cake_name = cake.cake_name
         cake_price = cake.cake_price
@@ -111,3 +111,23 @@ def homepage(request):  # 主页面显示
                                         'x_cake_img':x_cake_img,
                                         'x':x})
 
+
+def shopping_money(request):  # 购物车物品数量和总价格
+    if request.user.is_authenticated:
+        user_id = request.COOKIES.get('user_id')
+        checkout = CheckOut.objects.filter(user_id=user_id).all()
+        num = []
+        price = []
+        for i in checkout:
+            cake_id = i.cake_id
+            nums = int(i.number)
+            cake = Cake.objects.filter(id=cake_id).first()
+            cake_price = cake.cake_discount
+            sum_price = float(cake_price) * nums
+            num.append(nums)
+            price.append(sum_price)
+        number = sum(num)
+        cake_price = round(sum(price),2)
+        print(number,cake_price)
+        return JsonResponse({'number':number,'cake_price':cake_price})
+    return JsonResponse({'msg':'请先登录'})
