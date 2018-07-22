@@ -48,7 +48,7 @@ urlpatterns = [
     path('checkout/',zz.views.checkout,name='checkout'),
 
     path('delect_view/',zz.views.delect_view,name='delect_view'),
-
+    # 主页
     path('homepage/',zz.views.homepage,name='homepage'),
 
     # 请求顶部菜单

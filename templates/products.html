@@ -92,7 +92,7 @@
                         <div class="row row1 scroll-pane">
                             <div class="col col-4">
                                 {% for c in child %}
-                                    <label class="radio"><input type="radio" name="checkbox"><i></i>{{ c }}</label>
+                                    <label class="radio"><a href="/more/?page=1&type={{ classify }}&second={{ datum }}&thirdly={{ c }}"><input type="radio" name="checkbox"><i></i>{{ c }}</a></label>
                                 {% endfor %}
                             </div>
                         </div>
@@ -106,7 +106,6 @@
     <script>
         {#console.log($("input[value='Add']"));#}
         $("input[value='Add']").click(function () {
-            console.log('--------------------------------------------');
             var cake_id = this.getAttribute('id');
             var number = $("#number" + cake_id).attr('value');
             $.get('/tj_shopping/', {'cake_id': cake_id, 'number': number}, function (data) {

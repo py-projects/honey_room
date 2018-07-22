@@ -50,17 +50,6 @@
                                     </div>
                                 </li>
                             {% endfor %}
-
-
-                            <!--<li data-thumb="/static/images/s1.png">
-								<div class="thumb-image"> <img src="{{ cake_detail }}" data-imagezoom="true" class="img-responsive"> </div>
-							</li>
-							<li data-thumb="/static/images/s2.png">
-								 <div class="thumb-image"> <img src="/static/images/s2.png" data-imagezoom="true" class="img-responsive"> </div>
-							</li>
-							<li data-thumb="/static/images/s3.png">
-							   <div class="thumb-image"> <img src="/static/images/s3.png" data-imagezoom="true" class="img-responsive"> </div>
-							</li>-->
                         </ul>
                     </div>
                 </div>
@@ -96,7 +85,7 @@
                         <li>
                             <div class="galry">
                                 <div class="prices">
-                                    <h5 class="item_price">${{ cake.cake_discount}}</h5>
+                                    <h5 class="item_price">${{ cake.cake_discount }}</h5>
                                 </div>
                                 <div class="rating">
                                     <span>☆</span>
@@ -110,31 +99,18 @@
                         </li>
                     </ul>
 
-                    <p class="qty"> Qty : </p><input min="1" type="number" id="quantity" name="quantity" value="1"
+                    <p class="qty"> Qty : </p><input min="1" type="number" id="quantity" title="{{ cake.id }}"
+                                                     name="quantity" value="1"
                                                      class="form-control input-small">
                     <div class="btn_form">
-                        <a href="#" class="add-cart item_add">ADD TO CART</a>
+                        <a href="#" id="{{ cake.id }}" class="add-cart item_add" title="add">ADD TO CART</a>
                     </div>
                     <div class="tag">
                         <p>Category : <a href="#"> Cakes</a></p>
                         <p>Tag : <a href="#"> Lorem ipsum </a></p>
                     </div>
                 </div>
-                <!--<div class="col-md-4 single-grid1">
-                    <h2>Account</h2>
-                    <ul>
-                        <li><a href="#">Offers</a></li>
-                        <li><a href="products.html">New products</a></li>
-                        <li><a href="account.html">Register</a></li>
-                        <li><a href="account.html">Forgot Your Password</a></li>
-                        <li><a href="account.html">My account</a></li>
-                        <li><a href="contact.html">Address</a></li>
-                        <li><a href="checkout.html.html">wishlist</a></li>
-                        <li><a href="checkout.html.html">Order history</a></li>
-                        <li><a href="#">Downloads</a></li>
-                        <li><a href="#">Reward points</a></li>
-                    </ul>
-                </div>-->
+
                 <div class="clearfix"></div>
             </div>
         </div>
@@ -161,71 +137,7 @@
                         {% endfor %}
                     </div>
                 </div>
-                <!--<div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingTwo">
-                        <h4 class="panel-title">
-                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
-                               href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                additional information
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                        <div class="panel-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
-                            squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa
-                            nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
-                            single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft
-                            beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice
-                            lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you
-                            probably haven't heard of them accusamus labore sustainable VHS.
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingThree">
-                        <h4 class="panel-title">
-                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
-                               href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                reviews (5)
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel"
-                         aria-labelledby="headingThree">
-                        <div class="panel-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
-                            squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa
-                            nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
-                            single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft
-                            beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice
-                            lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you
-                            probably haven't heard of them accusamus labore sustainable VHS.
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingFour">
-                        <h4 class="panel-title">
-                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
-                               href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                help
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseFour" class="panel-collapse collapse" role="tabpanel"
-                         aria-labelledby="headingFour">
-                        <div class="panel-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
-                            squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa
-                            nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
-                            single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft
-                            beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice
-                            lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you
-                            probably haven't heard of them accusamus labore sustainable VHS.
-                        </div>
-                    </div>
-                </div>-->
+
             </div>
         </div>
     </div>
@@ -270,6 +182,17 @@
         </div>
     </div>
     <!--related-products-->
+    <script>
+        $('a[title="add"]').click(function () {
+            var cake_id = this.getAttribute('id');
+            var number = $("input[title='"+ cake_id+"']").attr('value');
+            console.log(number);
+            $.get('/tj_shopping/', {'cake_id': cake_id, 'number': number}, function (data) {
+                alert(data.msg);
+                console.log(cake_id);
+            });
+        });
+    </script>
 {% endblock %}
 
 

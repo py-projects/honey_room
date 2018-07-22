@@ -102,7 +102,7 @@
                         <span class="simpleCart_total"> $0.00 </span> (<span id="simpleCart_quantity"
                                                                              class="simpleCart_quantity"> 0 </span>)
                     </a></h4>
-                    <p><a href="javascript:;" class="simpleCart_empty">Empty cart</a></p>
+                    <p><a href="javascript:;" class="simpleCart_empty">Checkout cart</a></p>
                     <div class="clearfix"></div>
                 </div>
             </div>
@@ -177,7 +177,13 @@
             <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
     </div>
 </div>
-
+{#显示购物车总价、总数#}
+<script>
+    $.get('/shoping_moeny/', function (data) {
+        $('.simpleCart_total').innerText += data.cake_price;
+        $('.simpleCart_quantity').innerText = data.number;
+    });
+</script>
 <!--请求顶部菜单数据-->
 <script>
     $.ajax({
@@ -215,8 +221,8 @@
                         let li_emt = document.createElement('li');
                         let a_emt = document.createElement('a');
                         a_emt.setAttribute('class', 'list');
-                        a_emt.setAttribute('href', '/more/?page=1&type='+data.type[i]+'&second=flavour'+
-                                           '&thirdly='+data.flavour[d].fields.flavour);
+                        a_emt.setAttribute('href', '/more/?page=1&type=' + data.type[i] + '&second=flavour' +
+                            '&thirdly=' + data.flavour[d].fields.flavour);
                         a_emt.innerText = data.flavour[d].fields.flavour;
 
                         li_emt.appendChild(a_emt);
@@ -246,8 +252,8 @@
                         let li_emt = document.createElement('li');
                         let a_emt = document.createElement('a');
                         a_emt.setAttribute('class', 'list');
-                        a_emt.setAttribute('href', '/more/?page=1&type='+data.type[i]+'&second=weight'+
-                                           '&thirdly='+data.weight[d].fields.weight);
+                        a_emt.setAttribute('href', '/more/?page=1&type=' + data.type[i] + '&second=weight' +
+                            '&thirdly=' + data.weight[d].fields.weight);
                         a_emt.innerText = data.weight[d].fields.weight;
 
                         li_emt.appendChild(a_emt);
@@ -276,8 +282,8 @@
                         let li_emt = document.createElement('li');
                         let a_emt = document.createElement('a');
                         a_emt.setAttribute('class', 'list');
-                        a_emt.setAttribute('href', '/more/?page=1&type='+data.type[i]+'&second=relation'+
-                                           '&thirdly='+data.relation[d].fields.relation);
+                        a_emt.setAttribute('href', '/more/?page=1&type=' + data.type[i] + '&second=relation' +
+                            '&thirdly=' + data.relation[d].fields.relation);
                         a_emt.innerText = data.relation[d].fields.relation;
 
                         li_emt.appendChild(a_emt);
@@ -306,8 +312,8 @@
                         let li_emt = document.createElement('li');
                         let a_emt = document.createElement('a');
                         a_emt.setAttribute('class', 'list');
-                        a_emt.setAttribute('href', '/more/?page=1&type='+data.type[i]+'&second=theme'+
-                                           '&thirdly='+data.theme[d].fields.theme);
+                        a_emt.setAttribute('href', '/more/?page=1&type=' + data.type[i] + '&second=theme' +
+                            '&thirdly=' + data.theme[d].fields.theme);
                         a_emt.innerText = data.theme[d].fields.theme;
 
                         li_emt.appendChild(a_emt);
