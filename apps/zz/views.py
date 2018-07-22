@@ -2,11 +2,9 @@ import random
 
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
-from django.urls import reverse
 
 from main.models import Cake, CheckOut
 from users.models import UserPro
-from users.views import user_login
 
 
 def tj_shopping(request):  # 添加购物车
@@ -77,6 +75,7 @@ def homepage(request):  # 主页面显示
         id_lis.append(i['id'])  # 将字典转换成列表
 
     # 得到一个随机值作为id_lis的索引
+
     d = id_lis[random.randint(0, len(id_lis) - 1)]
     d_cake = Cake.objects.filter(id=d).first()
 
@@ -103,6 +102,7 @@ def homepage(request):  # 主页面显示
         dic['cake_img'] = cake_img
         dic['cake_id'] = cake_id
         lis.append(dic)
+
     return render(request, 'index.html', {'lis': lis, 'd_cake_name': d_cake_name,
                                           'd_cake_price': d_cake_price,
                                           'd_cake_img': d_cake_img,
@@ -111,3 +111,25 @@ def homepage(request):  # 主页面显示
                                           'x_cake_price': x_cake_price,
                                           'x_cake_img': x_cake_img,
                                           'x': x})
+
+
+def shopping_money(request):  # 购物车物品数量和总价格
+    if request.user.is_authenticated:
+        user_id = request.COOKIES.get('user_id')
+        checkout = CheckOut.objects.filter(user_id=user_id).all()
+        num = []
+        price = []
+        for i in checkout:
+            cake_id = i.cake_id
+            nums = int(i.number)
+            cake = Cake.objects.filter(id=cake_id).first()
+            cake_price = cake.cake_discount
+            sum_price = float(cake_price) * nums
+            num.append(nums)
+            price.append(sum_price)
+        number = sum(num)
+        cake_price = round(sum(price),2)
+        print(number,cake_price)
+        return JsonResponse({'number':number,'cake_price':cake_price})
+    return JsonResponse({'msg':'请先登录'})
+
