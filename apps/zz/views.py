@@ -15,17 +15,13 @@ def tj_shopping(request):  # 添加购物车
         number = request.GET.get('number')
         car = CheckOut.objects.filter(user_id=user_id, cake_id=cake_id)
         # 如果用户的商品为空，则添加
-        if not checkout:
+        if not car:
             CheckOut.objects.create(cake_id=cake_id, user_id=user_id, number=number)
         else:
             print('--------------------购物车中的原数量：', car.first().number)
             number = int(car.first().number) + int(number)
             # 更新商品的数量
-<<<<<<< HEAD
             CheckOut.objects.filter(user_id=user_id,cake_id=cake_id).update(number=number)
-=======
-            CheckOut.objects.filter(user_id=user_id, cake_id=cake_id).update(number=number)
->>>>>>> 5046e6781aa94030620afdfb7795bdb236d7bbe5
 
         user_name = UserPro.objects.filter(id=user_id).first().username
         cake_name = Cake.objects.filter(id=cake_id).first().cake_name
@@ -98,11 +94,7 @@ def homepage(request):  # 主页面显示
     lis = []
     for i in range(8):
         dic = {}
-<<<<<<< HEAD
-        cake_id = id_lis[random.randint(0,len(id_lis)-1)]
-=======
         cake_id = id_lis[random.randint(0, len(id_lis) - 1)]
->>>>>>> 5046e6781aa94030620afdfb7795bdb236d7bbe5
         cake = Cake.objects.filter(id=cake_id).first()
         cake_name = cake.cake_name
         cake_price = cake.cake_price
