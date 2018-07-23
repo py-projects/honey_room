@@ -57,8 +57,9 @@ def checkout(request):  # 购物车页面
         return redirect('/logout/')
 
 
-def delect_view(request, cake_id=112):  # 购物车删除
+def delect_view(request):  # 购物车删除
     if request.user.is_authenticated:
+        cake_id = request.GET.get('cake_id')
         user_id = request.COOKIES.get('user_id')
         user_id01 = CheckOut.objects.filter(user_id=user_id, cake_id=cake_id)
         if user_id01.exists():
@@ -128,8 +129,7 @@ def shopping_money(request):  # 购物车物品数量和总价格
             num.append(nums)
             price.append(sum_price)
         number = sum(num)
-        cake_price = round(sum(price),2)
-        print(number,cake_price)
-        return JsonResponse({'number':number,'cake_price':cake_price})
-    return JsonResponse({'msg':'请先登录'})
-
+        cake_price = round(sum(price), 2)
+        print(number, cake_price)
+        return JsonResponse({'number': number, 'cake_price': cake_price})
+    return JsonResponse({'msg': '请先登录'})

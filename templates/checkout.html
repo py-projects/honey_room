@@ -1,56 +1,59 @@
 {% extends 'base.html' %}
 
 {% block title %}
-购物车
+    购物车
 {% endblock %}
 
 {% block script %}
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <script type="application/x-javascript"> addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    } </script>
 {% endblock %}
 
 {% block content %}
-<div class="cart-items">
-		<div class="container">
-			<h2>{{ user_name }}的购物车</h2>
-			<script>$(document).ready(function(c) {
-				$('.close1').on('click', function(c){
-					$('.cart-header').fadeOut('slow', function(c){
-						$('.cart-header').remove();
-					});
-					});
-				});
-			</script>
+    <div class="cart-items">
+        <div class="container">
+            <h2>{{ user_name }}的购物车</h2>
+
             {% for i in lis %}
-                <div class="cart-header">
-				<div class="close1"> </div>
-				<div class="cart-sec simpleCart_shelfItem">
-					<div class="cart-item cyc">
-						 <img src="{{ i.img }}" class="img-responsive" alt="">
-					</div>
-					<div class="cart-item-info">
-						<h3><a href="#"> {{ i.cake_name }} </a><span>送货时间:30分钟</span></h3>
-						<ul class="qty">
-							<li><p>数量:{{ i.number }}</p></li>
-							<li><p>免费送货</p></li>
-						</ul>
-						<div class="delivery">
-							<p>价格 : ￥{{ i.f_cake_discount }}</p>
-{#							<span>Delivered in 1-1:30 hours</span>#}
-							<div class="clearfix"></div>
-						</div>
-					</div>
-					<div class="clearfix"></div>
-				</div>
-			</div>
-			 <script>$(document).ready(function(c) {
-					$('.close2').on('click', function(c){
-							$('.cart-header2').fadeOut('slow', function(c){
-						$('.cart-header2').remove();
-					});
-					});
-					});
-			 </script>
+                <div id="item{{ i.cake_id }}" class="cart-header">
+                    <div id="{{ i.cake_id }}" class="close1"></div>
+                    <div class="cart-sec simpleCart_shelfItem">
+                        <div class="cart-item cyc">
+                            <img src="{{ i.img }}" class="img-responsive" alt="">
+                        </div>
+                        <div class="cart-item-info">
+                            <h3><a href="#"> {{ i.cake_name }} </a><span>送货时间:30分钟</span></h3>
+                            <ul class="qty">
+                                <li><p>数量:{{ i.number }}</p></li>
+                                <li><p>免费送货</p></li>
+                            </ul>
+                            <div class="delivery">
+                                <p>价格 : ￥{{ i.f_cake_discount }}</p>
+                                {#							<span>Delivered in 1-1:30 hours</span>#}
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
             {% endfor %}
+
+            <script>
+                $(document).ready(function (c) {
+                    $('.close1').on('click', function (c) {
+                        var cake_id = this.getAttribute('id');
+                        $.get('/delect_view/', {'cake_id': cake_id});
+                        $('#item' + cake_id).fadeOut('slow', function (c) {
+                            $('#item' + cake_id).remove();
+                        });
+                    });
+                });
+            </script>
         </div>
-</div>
+    </div>
 {% endblock %}

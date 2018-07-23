@@ -179,10 +179,13 @@
 </div>
 {#显示购物车总价、总数#}
 <script>
-    $.get('/shoping_moeny/', function (data) {
-        $('.simpleCart_total').innerText += data.cake_price;
-        $('.simpleCart_quantity').innerText = data.number;
+    $(document).ready(function () {
+        $.get('/shopping_money/', function (data) {
+            $('.simpleCart_total').text(data.cake_price);
+            $('.simpleCart_quantity').text(data.number);
+        });
     });
+
 </script>
 <!--请求顶部菜单数据-->
 <script>

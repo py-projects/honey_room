@@ -43,14 +43,14 @@ urlpatterns = [
 
     path('more/', main_views.more_check, name='more'),
 
-    path('tj_shopping/',zz.views.tj_shopping,name='ti_shopping'),
+    path('tj_shopping/', zz.views.tj_shopping, name='ti_shopping'),
 
     # 购物车商品总价和数量
-    path('shopping_money/',zz.views.shopping_money,name='shopping_money'),
+    path('shopping_money/', zz.views.shopping_money, name='shopping_money'),
 
-    path('delect_view/',zz.views.delect_view,name='delect_view'),
+    path('delect_view/', zz.views.delect_view, name='delect_view'),
     # 主页
-    path('homepage/',zz.views.homepage,name='homepage'),
+    path('homepage/', zz.views.homepage, name='homepage'),
 
     # 请求顶部菜单
     path('head/', main_views.head, name='head'),
