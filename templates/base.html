@@ -68,13 +68,13 @@
                 <div id="loginBox">
                     {% if request.user.is_authenticated %}
                         <div>
-                            <span class="glyphicon glyphicon-user" aria-hidden="true">{{ username }}</span>
+                            <span class="glyphicon glyphicon-user" aria-hidden="true" style="color:blue">{{ request.COOKIES.user_name }}</span>
                         </div>
                         <div class="btn">
                             <a href="/logout/" class="btn btn-primary btn-sm" role="button">退出</a>
                         </div>
                     {% else %}
-                        <form id="loginForm" method="post" action="/index/">
+                        <form id="loginForm" method="post" action="/user_login/">
                             {% csrf_token %}
                             <fieldset id="body">
                                 <fieldset>
@@ -171,10 +171,10 @@
 
 <div class="footer-bottom">
     <div class="container">
-        <p>Copyright &copy; 2015.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/"
+        <p>Copyright &copy; 2018.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/"
                                                                                     target="_blank"
-                                                                                    title="模板之家">模板之家</a> - Collect from
-            <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
+                                                                                    title="甜甜屋">甜甜屋</a> - Collect from
+            <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">甜甜屋</a></p>
     </div>
 </div>
 {#显示购物车总价、总数#}
