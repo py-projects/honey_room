@@ -46,10 +46,11 @@ urlpatterns = [
 
     path('tj_shopping/',zz.views.tj_shopping,name='ti_shopping'),
 
-    path('checkout/',zz.views.checkout,name='checkout'),
+    # 购物车商品总价和数量
+    path('shopping_money/',zz.views.shopping_money,name='shopping_money'),
 
     path('delect_view/',zz.views.delect_view,name='delect_view'),
-
+    # 主页
     path('homepage/',zz.views.homepage,name='homepage'),
 
     # 请求顶部菜单
