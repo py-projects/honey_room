@@ -23,16 +23,18 @@ def user_login(request):
         # 获取用户提交的用户名和密码
         user_name = request.POST.get("username", "")
         pass_word = request.POST.get("password", "")
+
         # 成功返回user对象，失败None
         user = authenticate(username=user_name, password=pass_word)
         if user is not None:
             # 登录
-            # users = user.first()
             login(request, user)
-            result = render(request, "index.html", {'username': user_name})
-            # return render(request,"index.html",{'username':user_name})
-            result.set_cookie('user_id', user.id)
-            return result
+            req = redirect('/homepage/')
+            req.set_cookie('user_name',user_name)
+            print(user_name)
+            req.set_cookie('user_id', user.id)
+
+            return req
         else:
             return render(request, 'index.html', {'msg': '用户名或密码错误'})
 
@@ -42,7 +44,6 @@ def user_login(request):
 
 class LogoutView(View):
     '''用户登出'''
-
     def get(self, request):
         logout(request)
         return HttpResponseRedirect(reverse('index'))

@@ -10,6 +10,7 @@ from users.views import user_login
 
 
 def tj_shopping(request):  # 添加购物车
+
     if request.user.is_authenticated:  # 判断用户是否登录
         user_id = request.COOKIES.get('user_id')
         cake_id = request.GET.get('cake_id')
@@ -21,7 +22,6 @@ def tj_shopping(request):  # 添加购物车
         else:
             # 更新商品的数量
             CheckOut.objects.filter(user_id=user_id,cake_id=cake_id).update(number=number)
-
 
         user_name = UserPro.objects.filter(id=user_id).first().username
         cake_name = Cake.objects.filter(id=cake_id).first().cake_name
@@ -67,7 +67,7 @@ def delect_view(request,cake_id=112):  #购物车删除
 
 
 def homepage(request):  # 主页面显示
-
+    username1 = request.COOKIES.get('user_name')
     ids = Cake.objects.all().values('id')  # 获取所有id
     id_lis = []
     for i in ids:
@@ -92,7 +92,7 @@ def homepage(request):  # 主页面显示
     lis = []
     for i in range(8):
         dic = {}
-        cake_id = id_lis[random.randint(0,len(id_lis))]
+        cake_id = id_lis[random.randint(0,len(id_lis)-1)]
         cake = Cake.objects.filter(id=cake_id).first()
         cake_name = cake.cake_name
         cake_price = cake.cake_price
